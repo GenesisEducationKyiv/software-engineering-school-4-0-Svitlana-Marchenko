@@ -1,0 +1,19 @@
+[2024-05-19 02:07:01.475 AM] [32minfo[39m: 	[32mEmail test1@example.co added to the database[39m
+[2024-05-19 10:31:26.772 AM] [32minfo[39m: 	[32mEmail test1@example.com was added to the database[39m
+[2024-05-19 10:31:34.202 AM] [32minfo[39m: 	[32mEmail test2@example.com was added to the database[39m
+[2024-05-19 10:31:38.660 AM] [32minfo[39m: 	[32mEmail test3@example.com was added to the database[39m
+[2024-05-19 10:33:15.525 AM] [32minfo[39m: 	[32mEmail sveta25022004@gmail.com was added to the database[39m
+[2024-05-19 10:43:32.326 AM] [32minfo[39m: 	[32mEmail with ID: <32e638c2-77bc-6298-1039-7145644f8719@genesis.test> was sent to test1@example.com[39m
+[2024-05-19 10:43:32.486 AM] [32minfo[39m: 	[32mEmail with ID: <380585a9-d5bd-b1df-a965-4822076ce24c@genesis.test> was sent to sveta25022004@gmail.com[39m
+[2024-05-19 10:43:32.605 AM] [32minfo[39m: 	[32mEmail with ID: <7b616b34-63f9-f77e-2478-2d72359bff55@genesis.test> was sent to test2@example.com[39m
+[2024-05-19 10:43:33.135 AM] [32minfo[39m: 	[32mEmail with ID: <2be2e0d8-92e5-8656-4230-e45982d232f6@genesis.test> was sent to test3@example.com[39m
+[2024-05-19 10:46:37.161 AM] [31merror[39m: 	[31mEmail sveta25022004@gmail.com is already in the database[39m
+[2024-05-19 11:08:38.218 AM] [32minfo[39m: 	[32mEmail sveta25022004@gmail.com was added to the database[39m
+[2024-05-19 11:09:32.482 AM] [32minfo[39m: 	[32mEmail with ID: <d4a13733-a5d7-8000-d6de-d5a04eec51cb@genesis.test> was sent to sveta25022004@gmail.com[39m
+[2024-05-19 12:54:38.786 PM] [32minfo[39m: 	[32mEmail test@example.com was added to the database[39m
+[2024-05-19 01:18:38.747 PM] [32minfo[39m: 	[32mEmail test@example.com was added to the database[39m
+[2024-05-19 02:24:05.118 PM] [32minfo[39m: 	[32mEmail test@example.com was added to the database[39m
+[2024-05-19 02:31:57.765 PM] [32minfo[39m: 	[32mEmail test@example.com was added to the database[39m
+[2024-05-19 02:40:43.129 PM] [31merror[39m: 	[31mEmail test@example.com is already in the database[39m
+[2024-05-19 02:40:45.209 PM] [31merror[39m: 	[31mEmail test@example.com is already in the database[39m
+[2024-05-19 02:41:03.573 PM] [32minfo[39m: 	[32mEmail test1@example.com was added to the database[39m

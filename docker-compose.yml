@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: 'postgres:16.0'
+    container_name: postgres_container
+    env_file:
+      - .env
+    environment:
+      - 'POSTGRES_DB=${DB_NAME}'
+      - 'POSTGRES_PASSWORD=${DB_USER}'
+      - 'POSTGRES_USER=${DB_PASSWORD}'
+    ports:
+      - '5432:5432'
+  server:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres

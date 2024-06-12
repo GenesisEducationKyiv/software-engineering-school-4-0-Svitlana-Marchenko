@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "node test/app.test.js",
+        "test": "node src/test/app.test.js",
         "start": "node src/server.js",
         "migrate": "npx sequelize-cli db:migrate",
         "down": "npx sequelize-cli db:migrate:undo",

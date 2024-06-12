@@ -12,7 +12,7 @@ const emailSender = process.env.EMAIL_SENDER
 const emailSubject = process.env.EMAIL_SUBJECT || 'USD to UAH Exchange Rate'
 const emailTextTemplate = process.env.EMAIL_TEXT || '1 USD to UAH - {rate}'
 
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     host: emailService,
     port: 587,
     secure: false,
@@ -35,15 +35,15 @@ async function sendEmails() {
 
     const emailText = emailTextTemplate.replace('{rate}', rate)
 
-    emails.forEach((e) => {
-        sendEmail(emailSender, e, emailSubject, emailText).catch((err) =>
+    for (const email of emails) {
+        sendEmail(emailSender, email, emailSubject, emailText).catch((err) =>
             console.log(err)
         )
-    })
+    }
 }
 
 async function sendEmail(emailFrom, emailTo, subject, text) {
-    let email = await transporter.sendMail({
+    const email = await transporter.sendMail({
         from: emailFrom,
         to: emailTo,
         subject: subject,

@@ -1,5 +1,5 @@
-const winston = require('winston')
-const { combine, timestamp, printf, colorize, align } = winston.format
+import winston from 'winston';
+const { combine, timestamp, printf, colorize, align } = winston.format;
 
 const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
@@ -15,6 +15,6 @@ const logger = winston.createLogger({
         new winston.transports.Console(),
         new winston.transports.File({ filename: 'application.log' }),
     ],
-})
+});
 
-module.exports = logger
+export default logger;

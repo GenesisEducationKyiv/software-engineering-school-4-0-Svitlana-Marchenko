@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import { getRate } from '../controllers/rate.controller';
+import { Router } from 'express'
+import RateController from '../controllers/rate.controller'
 
-const router = Router();
+const router = Router()
 
-router.get('', getRate);
+router.get('', RateController.getRate)
 
-export = router;
+export = router

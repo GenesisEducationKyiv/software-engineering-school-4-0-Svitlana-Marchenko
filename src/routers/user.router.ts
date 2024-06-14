@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import { subscribeEmail } from '../controllers/user.controller';
+import { Router } from 'express'
+import UserController from '../controllers/user.controller'
 
-const router = Router();
+const router = Router()
 
-router.post('', subscribeEmail);
+router.post('', UserController.subscribeEmail)
 
 export = router

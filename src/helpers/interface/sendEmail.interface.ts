@@ -1,15 +1,15 @@
 export interface EmailConfig {
-    service: string;
-    login: string;
-    password: string;
-    sender: string;
-    subject: string;
-    textTemplate: string;
+    service: string
+    login: string
+    password: string
+    sender: string
+    subject: string
+    textTemplate: string
 }
 
 export interface EmailDetails {
-    from: string;
-    to: string;
-    subject: string;
-    text: string;
+    from: string
+    to: string
+    subject: string
+    text: string
 }

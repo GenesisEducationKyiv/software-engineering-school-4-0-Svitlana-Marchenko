@@ -1,11 +1,10 @@
-import {Entity, Column, PrimaryColumn} from "typeorm"
+import { Entity, Column, PrimaryColumn } from 'typeorm'
 
 @Entity()
 export class User {
-    @PrimaryColumn({type: "text"})
+    @PrimaryColumn({ type: 'text' })
     id: string
 
     @Column()
     email: string
-
 }

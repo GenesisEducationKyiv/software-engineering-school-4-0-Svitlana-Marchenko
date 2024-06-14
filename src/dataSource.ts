@@ -1,6 +1,6 @@
-import 'reflect-metadata';
-import { DataSource } from 'typeorm';
-import {User} from './entity/user.entity';
+import 'reflect-metadata'
+import { DataSource } from 'typeorm'
+import { User } from './entity/user.entity'
 
 export const dataSource = new DataSource({
     type: 'postgres',
@@ -13,7 +13,7 @@ export const dataSource = new DataSource({
     synchronize: false,
     migrations: ['src/migrations/*.ts'],
     migrationsTableName: 'migrations',
-    logging: false
-});
+    logging: false,
+})
 
 //ps hardcode val from .env is not good practice :(

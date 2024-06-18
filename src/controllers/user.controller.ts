@@ -7,12 +7,6 @@ class UserController {
     async subscribeEmail(req: Request, res: Response): Promise<Response> {
         const {email} = req.body
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!emailRegex.test(email)) {
-            logger.error(`Invalid email ${email} address`)
-            return res.status(400).json({message: `Invalid email address`})
-        }
-
         try {
             await userService.subscribeEmail(email)
             logger.info(`Email ${email} was added to the database`)

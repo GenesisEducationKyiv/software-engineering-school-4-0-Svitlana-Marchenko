@@ -4,7 +4,7 @@ import { dataSource as dataSource } from '../../dataSource'
 import { UserAlreadyExistsError } from '../../error/user.error'
 import {IUserService} from "./user.service.interface";
 
-class UserService implements IUserService{
+export class UserService implements IUserService{
 
     async subscribeEmail(email: string): Promise<User> {
         const userRepository = dataSource.getRepository(User)
@@ -32,5 +32,4 @@ class UserService implements IUserService{
         }
     }
 }
-
 export default new UserService()

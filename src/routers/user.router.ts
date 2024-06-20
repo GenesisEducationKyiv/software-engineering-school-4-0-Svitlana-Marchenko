@@ -1,9 +1,13 @@
 import { Router } from 'express'
-import UserController from '../controllers/user.controller'
+
 import checkEmailMiddleware from "../middleware/emailMiddleware";
+import {UserController} from "../controllers/user.controller";
+import {UserService} from "../services/user/user.service";
 
 const router = Router()
 
-router.post('', checkEmailMiddleware, UserController.subscribeEmail)
+const userController = new UserController(new UserService())
+
+router.post('', checkEmailMiddleware, (req, res) => userController.subscribeEmail(req, res))
 
 export = router

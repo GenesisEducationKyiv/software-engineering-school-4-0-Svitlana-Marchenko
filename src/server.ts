@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import './helpers/email.service'
+import './schedule/email.service'
 import rateRoute from './routers/rate.router'
 import userRoute from './routers/user.router'
 

@@ -2,9 +2,7 @@ import {Request, Response} from 'express'
 import logger from '../helpers/logger'
 import {UserAlreadyExistsError} from '../error/user.error'
 import {IUserService} from "../services/user/user.service.interface";
-import {UserService} from "../services/user/user.service";
-import {dataSource} from "../dataSource";
-import {User} from "../entity/user.entity";
+import userService from "../services/user/user.service";
 
 export class UserController {
 
@@ -35,4 +33,4 @@ export class UserController {
     }
 }
 
-export default new UserController(new UserService(dataSource.getRepository(User)))
+export default new UserController(userService)

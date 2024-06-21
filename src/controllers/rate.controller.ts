@@ -14,7 +14,7 @@ export class RateController {
             return res.status(200).json(exchangeRate)
         } catch (error) {
             logger.error('Error fetching exchange rate: ' + error.message)
-            return res.status(400).json({message: 'Error fetching exchange rate'})
+            return res.status(500).json({message: 'Error fetching exchange rate'})
         }
     }
 }

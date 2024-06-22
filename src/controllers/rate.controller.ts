@@ -15,7 +15,7 @@ class RateController {
                         'Error fetching exchange rate: ' + error.message
                     )
                     return res
-                        .status(400)
+                        .status(500)
                         .json({ message: 'Error fetching exchange rate' })
                 default:
                     logger.error('Unexpected error: ' + String(error))

@@ -34,15 +34,17 @@ describe('RateController', () => {
 
             await RateController.getRate(req as Request, res as Response);
 
+            expect(rateServiceStub.getExchangeRate.calledOnce).toBe(true);
             expect(res.status).toHaveBeenCalledWith(200);
         });
 
-        it('should return 400 if service return error', async () => {
+        it('should return 500 if service return error', async () => {
             rateServiceStub.getExchangeRate.rejects(new Error('Currency data not found'));
 
             await RateController.getRate(req as Request, res as Response);
 
-            expect(res.status).toHaveBeenCalledWith(400);
+            expect(rateServiceStub.getExchangeRate.calledOnce).toBe(true);
+            expect(res.status).toHaveBeenCalledWith(500);
         });
     });
 });

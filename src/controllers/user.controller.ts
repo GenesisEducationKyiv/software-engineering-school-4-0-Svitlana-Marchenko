@@ -16,7 +16,7 @@ class UserController {
         try {
             await userService.subscribeEmail(email)
             logger.info(`Email ${email} was added to the database`)
-            return res.status(200).json({
+            return res.status(201).json({
                 message: `New email was added to the database`,
             })
         } catch (error) {

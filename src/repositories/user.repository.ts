@@ -7,19 +7,28 @@ import {dataSource} from "../dataSource";
 export class UserRepository implements IUserRepository {
     constructor(private repository: Repository<User>) {}
 
-   async getUserByEmail(email: string): Promise<User> {
+   async getByEmail(email: string): Promise<User> {
         return await this.repository.findOne({ where: { email } })
     }
 
-    createUser(id: string, email: string): User {
+    private create(email: string): User {
         return this.repository.create({ id: uuidv4(), email })
     }
 
-    async saveUser(user: User): Promise<void> {
-        await this.repository.save(user)
+    async save(user: User): Promise<void>;
+    async save(email: string): Promise<void>;
+
+    // Реалізація методу
+    async save(param: User | string): Promise<void> {
+        if (typeof param === 'string') {
+            const user = this.create(param);
+            await this.repository.save(user);
+        } else {
+            await this.repository.save(param);
+        }
     }
 
-    getAllUsers(): Promise<User[]> {
+    getAll(): Promise<User[]> {
         return this.repository.find()
     }
 }

@@ -1,5 +1,4 @@
 import { User } from '../../entity/user.entity'
-import { v4 as uuidv4 } from 'uuid'
 import { UserAlreadyExistsError } from '../../error/user.error'
 import {IUserService} from "./user.service.interface";
 import {IUserRepository} from "../../repositories/user.repository.interface";
@@ -9,15 +8,13 @@ export class UserService implements IUserService{
 
     constructor(private userRepository: IUserRepository) {}
 
-    async subscribeEmail(email: string): Promise<User> {
-        const user = await this.userRepository.getUserByEmail(email)
+    async subscribeEmail(email: string): Promise<void> {
+        const user = await this.userRepository.getByEmail(email)
         if (user) {
             throw new UserAlreadyExistsError(email)
         }
-        const newUser = this.userRepository.createUser(uuidv4(), email)
         try {
-            await this.userRepository.saveUser(newUser)
-            return newUser
+            await this.userRepository.save(email)
         } catch (error) {
             throw new Error('Error creating user: ' + (error as Error).message)
         }
@@ -25,7 +22,7 @@ export class UserService implements IUserService{
 
     async getAllUsers(): Promise<User[]> {
         try {
-            return await this.userRepository.getAllUsers()
+            return await this.userRepository.getAll()
         } catch (error) {
             throw new Error(
                 'Error getting all users email: ' + (error as Error).message

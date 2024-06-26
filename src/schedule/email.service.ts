@@ -39,7 +39,7 @@ class EmailScheduler {
     }
 
     public start() {
-        cron.schedule('* * * * *', () => {
+        cron.schedule('0 12 * * *', () => {
             this.sendEmails().catch((err) => {
                 errorMailHandler(err)
                 }

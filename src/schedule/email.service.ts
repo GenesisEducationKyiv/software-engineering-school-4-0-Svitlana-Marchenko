@@ -1,7 +1,7 @@
 import cron from 'node-cron'
 import nodemailer from 'nodemailer'
 import logger from '../helpers/logger'
-import {EmailConfig, EmailDetails} from './interface/sendEmail.interface'
+import {IEmailConfig, IEmailDetails} from './interface/sendEmail.interface'
 import {User} from '../entity/user.entity'
 import {IRateService} from "../services/rate/rate.service.interface";
 import {IUserService} from "../services/user/user.service.interface";
@@ -9,10 +9,11 @@ import rateServiceInstance from '../services/rate/rate.service';
 import userServiceInstance from '../services/user/user.service';
 import SendEmailError from "../error/types/sendEmail.error";
 import {errorMailHandler} from "../error/handler/senderError.handler";
+import {emailConfig} from "../config/email.config";
 
 class EmailScheduler {
 
-    private emailConfig: EmailConfig;
+    private emailConfig: IEmailConfig;
 
     private transporter: nodemailer.Transporter;
 
@@ -20,33 +21,25 @@ class EmailScheduler {
 
     private userService: IUserService;
 
-    constructor(rateService: IRateService, userService: IUserService) {
+    constructor(rateService: IRateService, userService: IUserService, emailConfig: IEmailConfig) {
 
-        this.emailConfig = {
-            service: process.env.EMAIL_SERVICE || 'smtp.gmail.com',
-            login: process.env.EMAIL_LOGIN as string,
-            password: process.env.EMAIL_PASSWORD as string,
-            sender: process.env.EMAIL_SENDER as string,
-            subject: process.env.EMAIL_SUBJECT || 'USD to UAH Exchange Rate',
-            textTemplate: process.env.EMAIL_TEXT || '1 USD to UAH - {rate}',
-        };
+        this.emailConfig = emailConfig
+        this.rateService = rateService;
+        this.userService = userService;
 
         this.transporter = nodemailer.createTransport({
             host: this.emailConfig.service,
-            port: 587,
+            port: this.emailConfig.port,
             secure: false,
             auth: {
                 user: this.emailConfig.login,
                 pass: this.emailConfig.password,
             },
         });
-
-        this.rateService = rateService;
-        this.userService = userService;
     }
 
     public start() {
-        cron.schedule('0 12 * * *', () => {
+        cron.schedule('* * * * *', () => {
             this.sendEmails().catch((err) => {
                 errorMailHandler(err)
                 }
@@ -68,7 +61,7 @@ class EmailScheduler {
         const emailText = this.emailConfig.textTemplate.replace('{rate}', String(rate));
 
         for (const user of users) {
-            const emailDetails: EmailDetails = {
+            const emailDetails: IEmailDetails = {
                 from: this.emailConfig.sender,
                 to: user.email,
                 subject: this.emailConfig.subject,
@@ -83,7 +76,7 @@ class EmailScheduler {
                                 to,
                                 subject,
                                 text,
-                            }: EmailDetails): Promise<void> {
+                            }: IEmailDetails): Promise<void> {
         try {
             const email = await this.transporter.sendMail({
                 from: from,
@@ -98,5 +91,5 @@ class EmailScheduler {
     }
 }
 
-const emailScheduler = new EmailScheduler(rateServiceInstance, userServiceInstance);
+const emailScheduler = new EmailScheduler(rateServiceInstance, userServiceInstance, emailConfig);
 emailScheduler.start();

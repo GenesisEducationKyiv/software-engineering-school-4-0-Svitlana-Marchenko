@@ -1,7 +1,7 @@
 import {IRateService} from "../rate.service.interface";
 
 export interface IChain extends IRateService{
-    setNext(next: IChain): void;
+    setNext(next: IChain): IChain;
 }
 
 export class BaseChain implements IChain {
@@ -18,7 +18,7 @@ export class BaseChain implements IChain {
         try {
             return await this.rateService.getExchangeRate();
         } catch (error) {
-            if (this.next === null) {
+            if (!this.next) {
                 throw error;
             }
             return this.next.getExchangeRate();

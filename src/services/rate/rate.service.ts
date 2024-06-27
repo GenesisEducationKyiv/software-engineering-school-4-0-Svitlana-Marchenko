@@ -1,19 +1,12 @@
 import {IRateService} from "./rate.service.interface";
 import {BaseChain} from "./client/chain";
-import privatebankRateService from "./client/privatebank.rate.service";
-import exchangeapiRateService from "./client/exchangeapi.rate.service";
-import bankGovRateService from "./client/bank.gov.rate.service";
 import logger from "../../helpers/logger";
+import privatBankChain from "./client/rate.chain.const";
 
 export class RateService implements IRateService {
 
-    private baseChain: BaseChain
-
-    constructor() {
-        const privatBankChain = new BaseChain(privatebankRateService)
-        privatBankChain.setNext(new BaseChain(bankGovRateService)).setNext(new BaseChain(exchangeapiRateService))
-
-        this.baseChain = privatBankChain
+    constructor(private baseChain: BaseChain) {
+        this.baseChain = baseChain
     }
 
     async getExchangeRate(): Promise<number> {
@@ -21,4 +14,4 @@ export class RateService implements IRateService {
         return this.baseChain.getExchangeRate()
     }
 }
-export default new RateService();
+export default new RateService(privatBankChain);

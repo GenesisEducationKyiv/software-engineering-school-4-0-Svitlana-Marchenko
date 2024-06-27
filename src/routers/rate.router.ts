@@ -3,6 +3,6 @@ import RateController from '../controllers/rate.controller'
 
 const router = Router()
 
-router.get('', RateController.getRate)
+router.get('', (req, res) => RateController.getRate(req, res))
 
 export = router

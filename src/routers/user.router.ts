@@ -1,8 +1,11 @@
 import { Router } from 'express'
-import UserController from '../controllers/user.controller'
+
+import checkEmailMiddleware from "../middleware/email.middleware";
+import userController from "../controllers/user.controller";
+
 
 const router = Router()
 
-router.post('', UserController.subscribeEmail)
+router.post('', checkEmailMiddleware, (req, res) => userController.subscribeEmail(req, res))
 
 export = router

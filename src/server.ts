@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import './helpers/email.service'
+import './schedule/email.service'
 import rateRoute from './routers/rate.router'
 import userRoute from './routers/user.router'
 
@@ -16,20 +16,24 @@ const PORT = process.env.PORT || 3000
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.use('/api/rate', rateRoute)
+app.use('/api/subscribe', userRoute)
+
 dataSource
     .initialize()
     .then(() => {
-        console.log('Data Source has been initialized!')
+
+       // app.use(errorHandler);
+
 
         app.listen(PORT, () => {
             console.log('SERVER IS RUNNING ON PORT ' + PORT)
         })
 
-        app.use('/api/rate', rateRoute)
-        app.use('/api/subscribe', userRoute)
     })
     .catch((error) => {
         console.error('Error during Data Source initialization:', error)
     })
+
 
 export default app

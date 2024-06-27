@@ -1,28 +1,22 @@
-import { Request, Response } from 'express'
-import rateService from '../services/rate/rate.service'
+import {Request, Response} from 'express'
 import logger from '../helpers/logger'
+import {IRateService} from "../services/rate/rate.service.interface";
+import rateService from "../services/rate/rate.service";
+import {errorHandler} from "../error/handler/error.handler";
 
-class RateController {
+export class RateController {
+
+    constructor(private rateService: IRateService) {}
+
     async getRate(req: Request, res: Response): Promise<Response> {
         try {
             logger.debug(`Getting currency rate`)
-            const exchangeRate = await rateService.getExchangeRate()
+            const exchangeRate = await this.rateService.getExchangeRate()
             return res.status(200).json(exchangeRate)
         } catch (error) {
-            switch (true) {
-                case error instanceof Error:
-                    logger.error(
-                        'Error fetching exchange rate: ' + error.message
-                    )
-                    return res
-                        .status(500)
-                        .json({ message: 'Error fetching exchange rate' })
-                default:
-                    logger.error('Unexpected error: ' + String(error))
-                    return res.status(500).json({ message: 'Unexpected error' })
-            }
+            errorHandler(error, req, res)
         }
     }
 }
 
-export default new RateController()
+export default new RateController(rateService)

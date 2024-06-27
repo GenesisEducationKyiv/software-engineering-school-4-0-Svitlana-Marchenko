@@ -3,9 +3,9 @@ import {User} from "../entity/user.entity";
 export interface IUserRepository{
     getByEmail(email: string): Promise<User>
 
-    save(user: User): Promise<void>
+    saveByUser(user: User): Promise<User>
 
-    save(email: string): Promise<void>
+    saveByEmail(email: string): Promise<User>
 
     getAll(): Promise<User[]>
 }

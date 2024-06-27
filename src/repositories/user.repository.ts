@@ -15,21 +15,16 @@ export class UserRepository implements IUserRepository {
         return this.repository.create({ id: uuidv4(), email })
     }
 
-    async save(user: User): Promise<void>;
-    async save(email: string): Promise<void>;
-
-    // Реалізація методу
-    async save(param: User | string): Promise<void> {
-        if (typeof param === 'string') {
-            const user = this.create(param);
-            await this.repository.save(user);
-        } else {
-            await this.repository.save(param);
-        }
-    }
-
     getAll(): Promise<User[]> {
         return this.repository.find()
+    }
+
+    async saveByEmail(email: string): Promise<User> {
+        return this.saveByUser(this.create(email))
+    }
+
+   async saveByUser(user: User): Promise<User> {
+        return await this.repository.save(user);
     }
 }
 

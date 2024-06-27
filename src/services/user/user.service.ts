@@ -14,7 +14,7 @@ export class UserService implements IUserService{
             throw new UserAlreadyExistsError(email)
         }
         try {
-            await this.userRepository.save(email)
+            await this.userRepository.saveByEmail(email)
         } catch (error) {
             throw new Error('Error creating user: ' + (error as Error).message)
         }

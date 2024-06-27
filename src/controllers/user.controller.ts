@@ -24,4 +24,4 @@ export class UserController {
     }
 }
 
-export default new UserController(new UserService(dataSource.getRepository(User)))
+export default new UserController(userService)

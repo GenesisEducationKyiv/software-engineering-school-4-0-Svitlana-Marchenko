@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import logger from '../helpers/logger'
 import {IRateService} from "../services/rate/rate.service.interface";
 import rateService from "../services/rate/rate.service";
+import {errorHandler} from "../error/handler/error.handler";
 
 export class RateController {
 
@@ -13,8 +14,7 @@ export class RateController {
             const exchangeRate = await this.rateService.getExchangeRate()
             return res.status(200).json(exchangeRate)
         } catch (error) {
-            logger.error('Error fetching exchange rate: ' + error.message)
-            return res.status(500).json({message: 'Error fetching exchange rate'})
+            errorHandler(error, req, res)
         }
     }
 }

@@ -12,7 +12,7 @@ Exchange Rate API: https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursi
 
 -   **Postman**: Includes postman request collection and tests
 -   **Logger**: Includes logging info (add an email, send emails, get rate (debug only)) to file `application.log` and console
--   **Test**: Includes test `app.test.js`
+-   **Test**: Includes test `app.test.ts`
 
 ## API Endpoints
 
@@ -37,8 +37,9 @@ Exchange Rate API: https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursi
     -   `409`: Email already exists in the database.
 
 ## Run
-1) Create .env file like .env.example:
-2) To run the program try to write
+
+1. Create .env file like .env.example:
+2. To run the program try to write
 
 ```
 docker-compose up --build

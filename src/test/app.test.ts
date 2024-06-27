@@ -1,7 +1,7 @@
-const request = require('supertest')
-const assert = require('assert')
-const app = require('../server')
-const { test } = require('node:test')
+import request from 'supertest'
+import assert from 'assert'
+import { test } from 'node:test'
+import app from '../server'
 
 test('GET /api/rate returns 200 code and number type', async () => {
     const response = await request(app).get('/api/rate')

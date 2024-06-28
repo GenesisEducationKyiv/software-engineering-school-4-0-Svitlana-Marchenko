@@ -1,14 +1,14 @@
 import cron from 'node-cron'
 import nodemailer from 'nodemailer'
-import logger from '../helpers/logger'
+import logger from '../../helpers/logger'
 import {IEmailConfig, IEmailDetails} from './interface/sendEmail.interface'
-import {User} from '../entity/user.entity'
+import {User} from '../../data-access/entity/user.entity'
 import {IRateService} from "../services/rate/rate.service.interface";
 import {IUserService} from "../services/user/user.service.interface";
 import rateServiceInstance from '../services/rate/rate.service';
 import userServiceInstance from '../services/user/user.service';
-import SendEmailError from "../error/types/sendEmail.error";
-import {errorMailHandler} from "../error/handler/senderError.handler";
+import SendEmailError from "../../error/types/sendEmail.error";
+import {errorMailHandler} from "../../error/handler/senderError.handler";
 import {emailConfig} from "../config/email.config";
 
 class EmailScheduler {

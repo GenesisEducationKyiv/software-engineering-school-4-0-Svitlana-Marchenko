@@ -1,6 +1,6 @@
-import userService from '../../services/user/user.service';
-import { User } from '../../entity/user.entity';
-import {dataSource} from '../../dataSource';
+import userService from '../../service/services/user/user.service';
+import { User } from '../../data-access/entity/user.entity';
+import {dataSource} from '../../data-access/config/dataSource';
 
 describe('UserService Integration', () => {
     beforeAll(async () => {

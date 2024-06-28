@@ -1,7 +1,7 @@
-import {Fawazahmed0ExchangeRateData, IRateService} from "../rate.service.interface";
+import {Fawazahmed0ExchangeRateData, IRateService} from "../../service/services/rate/rate.service.interface";
 import axios from "axios";
-import logger from "../../../helpers/logger";
-import {EXCHANGE_API_URL} from "../../../config/rate.api.const";
+import logger from "../../helpers/logger";
+import {EXCHANGE_API_URL} from "../config/rate.api.const";
 
 export class ExchangeAPIRateService implements IRateService{
 

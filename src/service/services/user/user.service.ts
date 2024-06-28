@@ -1,18 +1,15 @@
-import { User } from '../../entity/user.entity'
-import { UserAlreadyExistsError } from '../../error/user.error'
-import { v4 as uuidv4 } from 'uuid'
-import { dataSource as dataSource } from '../../dataSource'
-import UserAlreadyExistError from '../../error/types/userAlreadyExist.error'
+import { User } from '../../../data-access/entity/user.entity'
+import UserAlreadyExistError from '../../../error/types/userAlreadyExist.error'
 import {IUserService} from "./user.service.interface";
-import {IUserRepository} from "../../repositories/user.repository.interface";
-import userRepository from "../../repositories/user.repository";
+import {IUserRepository} from "../../../data-access/repositories/user.repository.interface";
+import userRepository from "../../../data-access/repositories/user.repository";
 
 
 export class UserService implements IUserService{
 
     constructor(private userRepository: IUserRepository) {}
 
-    async subscribeEmail(email: string): Promise<void> {
+    async subscribeEmail(email: string): Promise<User> {
         const user = await this.userRepository.getByEmail(email)
 
         if (user) {
@@ -20,7 +17,7 @@ export class UserService implements IUserService{
         }
       
         try {
-            await this.userRepository.saveByEmail(email)
+            return await this.userRepository.saveByEmail(email)
         } catch (error) {
             throw new Error('Error creating user: ' + (error as Error).message)
         }

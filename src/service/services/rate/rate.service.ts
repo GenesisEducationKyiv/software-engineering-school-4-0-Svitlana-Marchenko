@@ -1,5 +1,5 @@
 import {IChain} from "./client/chain";
-import logger from "../../helpers/logger";
+import logger from "../../../helpers/logger";
 import privatBankChain from "./client/rate.chain.const";
 import {IRateService} from "./rate.service.interface";
 

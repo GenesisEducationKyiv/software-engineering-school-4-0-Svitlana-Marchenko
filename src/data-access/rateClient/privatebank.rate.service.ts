@@ -1,7 +1,7 @@
-import {IRateService, PrivateBankRateData} from "../rate.service.interface";
+import {IRateService, PrivateBankRateData} from "../../service/services/rate/rate.service.interface";
 import axios from "axios";
-import logger from "../../../helpers/logger";
-import {CURRENCY, PRIVATBANK_URL} from "../../../config/rate.api.const";
+import logger from "../../helpers/logger";
+import {CURRENCY, PRIVATBANK_URL} from "../config/rate.api.const";
 
 export class PrivatebankRateService implements IRateService{
 

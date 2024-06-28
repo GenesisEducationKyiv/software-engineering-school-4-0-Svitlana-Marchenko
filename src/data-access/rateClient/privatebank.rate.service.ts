@@ -1,9 +1,10 @@
-import {IRateService, PrivateBankRateData} from "../../service/services/rate/rate.service.interface";
+import {PrivateBankRateData} from "./rate.client.interface";
 import axios from "axios";
 import logger from "../../helpers/logger";
 import {CURRENCY, PRIVATBANK_URL} from "../config/rate.api.const";
+import {IRateChainService} from "../../service/services/rate/client/chain";
 
-export class PrivatebankRateService implements IRateService{
+export class PrivatebankRateService implements IRateChainService{
 
     async getExchangeRate(): Promise<number> {
         const response = await axios.get<PrivateBankRateData[]>(PRIVATBANK_URL);

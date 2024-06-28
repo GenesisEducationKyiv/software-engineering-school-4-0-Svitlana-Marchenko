@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer'
 import logger from '../../helpers/logger'
 import {IEmailConfig, IEmailDetails} from './interface/sendEmail.interface'
 import {User} from '../../data-access/entity/user.entity'
-import {IRateService} from "../services/rate/rate.service.interface";
+import {IRateService} from "../services/rate/rate.service.interface"
 import {IUserService} from "../services/user/user.service.interface";
 import rateServiceInstance from '../services/rate/rate.service';
 import userServiceInstance from '../services/user/user.service';

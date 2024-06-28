@@ -1,14 +1,11 @@
-import {IRateService} from "./rate.service.interface";
-import {BaseChain} from "./client/chain";
+import {IChain} from "./client/chain";
 import logger from "../../helpers/logger";
 import privatBankChain from "./client/rate.chain.const";
-import axios from 'axios';
-import {IRateService, RateData} from "./rate.service.interface";
-import RateApiError from "../../error/types/rateApi.error";
+import {IRateService} from "./rate.service.interface";
 
 export class RateService implements IRateService {
 
-    constructor(private baseChain: BaseChain) {
+    constructor(private baseChain: IChain) {
         this.baseChain = baseChain
     }
 

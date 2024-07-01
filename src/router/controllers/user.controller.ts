@@ -1,10 +1,8 @@
 import {Request, Response} from 'express'
-import logger from '../helpers/logger'
-import {IUserService} from "../services/user/user.service.interface";
-import {UserService} from "../services/user/user.service";
-import {dataSource} from "../dataSource";
-import {User} from "../entity/user.entity";
-import {errorHandler} from "../error/handler/error.handler";
+import logger from '../../helpers/logger'
+import {IUserService} from "../../service/services/user/user.service.interface";
+import userService from "../../service/services/user/user.service";
+import {errorHandler} from "../../error/handler/error.handler";
 
 export class UserController {
 
@@ -24,4 +22,4 @@ export class UserController {
     }
 }
 
-export default new UserController(new UserService(dataSource.getRepository(User)))
+export default new UserController(userService)

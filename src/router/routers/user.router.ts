@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import checkEmailMiddleware from "../middleware/email.middleware";
+import checkEmailMiddleware from "../../service/middleware/email.middleware";
 import userController from "../controllers/user.controller";
 
 

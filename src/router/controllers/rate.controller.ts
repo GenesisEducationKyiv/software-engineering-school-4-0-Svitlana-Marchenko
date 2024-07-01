@@ -14,7 +14,7 @@ export class RateController {
             const exchangeRate = await this.rateService.getExchangeRate()
             return res.status(200).json(exchangeRate)
         } catch (error) {
-            errorHandler(error, req, res)
+            return errorHandler(error, req, res)
         }
     }
 }

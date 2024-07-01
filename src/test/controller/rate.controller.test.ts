@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import sinon from 'sinon';
-import RateController from '../../controllers/rate.controller';
-import RateService from '../../services/rate/rate.service';
+import RateController from '../../router/controllers/rate.controller';
+import RateService from '../../service/services/rate/rate.service';
 
 describe('RateController', () => {
     let req: Partial<Request>;

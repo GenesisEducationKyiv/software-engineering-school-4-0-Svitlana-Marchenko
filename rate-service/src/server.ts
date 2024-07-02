@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-import rateRoute from './router/routers/rate.router'
+import rateRoute from './routers/rate.router'
 
 import express from 'express'
 import bodyParser from 'body-parser'

@@ -11,7 +11,7 @@ const PORT = 3003
 
 
 app.listen(PORT, () => {
-    console.log('RATE SERVER IS RUNNING ON PORT ' + PORT)
+    console.log('EMAIL SERVER IS RUNNING ON PORT ' + PORT)
     emailService.start();
 })
 

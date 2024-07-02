@@ -11,8 +11,9 @@ export const dataSource = new DataSource({
     database: 'currency_api',
     entities: [User],
     synchronize: false,
-    migrations: ['src/migrations/*.ts'],
-    migrationsTableName: 'migrations',
+    migrations: [],
+    // migrations: ['src/migrations/*.ts'],
+    // migrationsTableName: 'migrations',
     logging: false,
 })
 

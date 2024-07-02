@@ -24,10 +24,21 @@ export class UserController {
     async getAllUsers(req: Request, res: Response): Promise<Response> {
         try {
             const users = await this.userService.getAllUsers();
-            logger.debug(`Getting all users from db, found ${users.length} users`);
+            logger.debug(`Getting (${users.length}) users from db`);
             return res.status(200).json(users);
         } catch (error) {
             logger.error(`Error getting users: ${error.message}`);
+            return errorHandler(error, req, res);
+        }
+    }
+
+    async getAllUsersEmails(req: Request, res: Response): Promise<Response> {
+        try {
+            const emails = await this.userService.getAllUsersEmails();
+            logger.debug(`Getting all users emails from db`);
+            return res.status(200).json(emails);
+        } catch (error) {
+            logger.error(`Error getting users emails: ${error.message}`);
             return errorHandler(error, req, res);
         }
     }

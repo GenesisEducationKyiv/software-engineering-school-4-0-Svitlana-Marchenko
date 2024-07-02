@@ -30,5 +30,14 @@ export class UserService implements IUserService{
             throw new Error('Error getting all users email: ' + (error as Error).message)
         }
     }
+
+    async getAllUsersEmails(): Promise<String[]> {
+        try {
+            const users = await this.userRepository.getAll()
+            return users.map(user => user.email);
+        } catch (error) {
+            throw new Error('Error getting all users email: ' + (error as Error).message)
+        }
+    }
 }
 export default new UserService(userRepository)

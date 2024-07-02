@@ -1,9 +1,12 @@
 // import { Request, Response } from 'express';
 // import sinon from 'sinon';
-// import UserController from '../../controllers/user.controller';
-// import UserService from '../../services/user/user.service';
+//
 // import {FIRST_EMAIL, FIRST_ID} from "../mock/user.const";
-// import {User} from "../../entity/user.entity";
+// import {UserService} from "../../service/services/user/user.service";
+// import {UserController} from "../../router/controllers/user.controller";
+// import {User} from "../../data-access/entity/user.entity";
+// import Sinon from "sinon";
+//
 //
 // describe('UserController', () => {
 //     let req: Partial<Request>;
@@ -15,14 +18,11 @@
 //             body: {}
 //         };
 //         res = {
-//             status: jest.fn().mockReturnThis(),
-//             json: jest.fn()
+//             status: sinon.stub().returnsThis(),
+//             json: sinon.stub(),
+//             send: sinon.stub()
 //         };
 //         userServiceStub = sinon.stub(UserService);
-//     });
-//
-//     afterEach(() => {
-//         sinon.restore();
 //     });
 //
 //     afterEach(() => {
@@ -33,7 +33,7 @@
 //
 //         it('should create a new user if user with given email does not exist', async () => {
 //             req.body = { email: FIRST_EMAIL };
-//             userServiceStub.subscribeEmail.resolves(User(id: FIRST_ID, email: FIRST_EMAIL));
+//             userServiceStub.subscribeEmail.resolves({ id: FIRST_ID, email: FIRST_EMAIL });
 //
 //             await UserController.subscribeEmail(req as Request, res as Response);
 //

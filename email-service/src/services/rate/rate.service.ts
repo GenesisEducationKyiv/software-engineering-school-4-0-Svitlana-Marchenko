@@ -1,5 +1,7 @@
 import {IRateService} from "./rate.service.interface";
 import axios from "axios";
+import {errorHandler} from "../../error/handler/error.handler";
+import {RATE_API_URL} from "../../config/system.config";
 
 export class RateService implements IRateService {
 
@@ -7,10 +9,10 @@ export class RateService implements IRateService {
 
     async getExchangeRate(): Promise<number> {
         try {
-            const response = await axios.get('http://localhost:3002/api/rate');
+            const response = await axios.get(RATE_API_URL);
             return response.data;
         } catch (error) {
-            throw new Error('Error getting rate: ' + (error as Error).message)
+            errorHandler(error)
         }
     }
 }

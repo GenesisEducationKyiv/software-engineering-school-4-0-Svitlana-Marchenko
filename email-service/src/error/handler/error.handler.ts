@@ -1,7 +1,7 @@
 import { BaseError } from "../base.error";
 import logger from "../../helpers/logger";
 
-export const errorMailHandler = (err: Error) => {
+export const errorHandler = (err: Error) => {
     if (!(err instanceof BaseError)) {
         logger.error(`Error: ${err.message}\nStack: ${err.stack}`);
         return;

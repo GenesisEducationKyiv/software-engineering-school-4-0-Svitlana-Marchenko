@@ -4,7 +4,7 @@ import logger from '../../helpers/logger'
 import {IEmailConfig, IEmailDetails} from './sendEmail.interface'
 import {IRateService} from "../rate/rate.service.interface"
 import {IUserService} from "../user/user.service.interface";
-import {errorMailHandler} from "../../error/handler/senderError.handler";
+import {errorHandler} from "../../error/handler/error.handler";
 import {emailConfig} from "../../config/email.config";
 import SendEmailError from "../../error/types/sendEmail.error";
 import userService from "../user/user.service";
@@ -40,7 +40,7 @@ class EmailScheduler {
     public start() {
         cron.schedule('0 12 * * *', () => {
             this.sendEmails().catch((err) => {
-                errorMailHandler(err)
+                errorHandler(err)
                 }
             );
         });

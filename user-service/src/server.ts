@@ -4,8 +4,8 @@ dotenv.config()
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { dataSource } from './data-access/config/dataSource'
-import userRoute from './router/routers/user.router'
+import { dataSource } from './config/dataSource'
+import userRoute from './routers/user.router'
 
 const app = express()
 // const PORT = process.env.PORT || 3001

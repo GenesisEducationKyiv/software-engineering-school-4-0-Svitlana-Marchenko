@@ -1,14 +1,11 @@
-import dotenv from 'dotenv'
-
+import * as dotenv from 'dotenv'
 dotenv.config()
 
 import express from 'express'
 import emailService from "./services/scheduler/email.service";
 
 const app = express()
-// const PORT = process.env.PORT || 3003
-const PORT = 3003
-
+const PORT = process.env.PORT
 
 app.listen(PORT, () => {
     console.log('EMAIL SERVER IS RUNNING ON PORT ' + PORT)

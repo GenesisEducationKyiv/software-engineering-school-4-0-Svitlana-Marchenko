@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 import express from 'express'
-import emailService from "./services/scheduler/email.service";
+import emailService from "./services/scheduler/email.schedular.service";
 
 const app = express()
 const PORT = process.env.PORT

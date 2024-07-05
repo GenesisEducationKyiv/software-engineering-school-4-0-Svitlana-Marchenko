@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import userService from '../services/user.service'
+import userService from '../services/user/user.service'
 import { User } from '../entity/user.entity'
 import {dataSource} from "../config/dataSource";
 import {FIRST_EMAIL, FIRST_ID, SECOND_EMAIL, SECOND_ID} from "./mock/user.const";

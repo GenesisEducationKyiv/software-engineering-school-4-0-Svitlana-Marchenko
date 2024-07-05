@@ -3,8 +3,9 @@ import logger from '../helpers/logger'
 import {IRateService} from "../services/rate.service.interface"
 import rateService from "../services/rate.service";
 import {errorHandler} from "../error/handler/error.handler";
+import {IRateController} from "./rate.controller.interface";
 
-export class RateController {
+export class RateController implements IRateController{
 
     constructor(private rateService: IRateService) {}
 

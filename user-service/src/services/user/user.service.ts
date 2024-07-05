@@ -1,9 +1,8 @@
-import { User } from '../entity/user.entity'
-import UserAlreadyExistError from '../error/types/userAlreadyExist.error'
+import { User } from '../../entity/user.entity'
+import UserAlreadyExistError from '../../error/types/userAlreadyExist.error'
 import {IUserService} from "./user.service.interface";
-import {IUserRepository} from "../repositories/user.repository.interface";
-import userRepository from "../repositories/user.repository";
-
+import {IUserRepository} from "../../repositories/user.repository.interface";
+import userRepository from "../../repositories/user.repository";
 
 export class UserService implements IUserService{
 

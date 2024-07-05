@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import logger from '../helpers/logger'
-import {IUserService} from "../services/user.service.interface";
-import userService from "../services/user.service";
+import {IUserService} from "../services/user/user.service.interface";
+import userService from "../services/user/user.service";
 import {errorHandler} from "../error/handler/error.handler";
 
 export class UserController {

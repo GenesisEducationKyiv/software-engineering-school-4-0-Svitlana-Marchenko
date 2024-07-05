@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 
 import { dataSource } from './config/dataSource'
 import userRoute from './routers/user.router'
+import schedulerService from "./services/scheduler/scheduler.service";
 
 const app = express()
 // const PORT = process.env.PORT || 3001
@@ -22,6 +23,8 @@ dataSource
         app.listen(PORT, () => {
             console.log('USER SERVER IS RUNNING ON PORT ' + PORT)
         })
+
+        schedulerService.start()
 
     })
     .catch((error) => {

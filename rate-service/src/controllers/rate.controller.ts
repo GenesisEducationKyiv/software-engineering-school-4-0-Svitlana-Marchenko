@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import logger from '../helpers/logger'
-import {IRateService} from "../service/rate.service.interface"
-import rateService from "../service/rate.service";
+import {IRateService} from "../services/rate.service.interface"
+import rateService from "../services/rate.service";
 import {errorHandler} from "../error/handler/error.handler";
 
 export class RateController {

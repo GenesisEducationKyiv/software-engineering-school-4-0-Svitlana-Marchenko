@@ -1,3 +1,4 @@
+import RateApiError from "../../error/types/rateApi.error";
 
 export interface IChain{
     setNext(next: IChain): IChain;
@@ -23,7 +24,7 @@ export class BaseChain implements IChain {
             return await this.rateService.getExchangeRate();
         } catch (error) {
             if (!this.next) {
-                throw error;
+                throw new RateApiError({message: "Error while getting rate"});
             }
             return this.next.getExchangeRate();
         }

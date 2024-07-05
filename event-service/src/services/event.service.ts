@@ -1,5 +1,5 @@
 import { IEvent } from '../model/event.model';
-import eventRepository, { EventRepository } from '../repository/event.repository';
+import eventRepository, { EventRepository } from '../repositories/event.repository';
 import {IEventService} from "./event.service.interface";
 
 export class EventService implements IEventService{

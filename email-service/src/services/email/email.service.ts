@@ -10,7 +10,6 @@ export class EmailSender implements IEmailSender {
 
     private transporter: nodemailer.Transporter;
 
-
     constructor(emailConfig: IEmailConfig) {
 
         this.emailConfig = emailConfig

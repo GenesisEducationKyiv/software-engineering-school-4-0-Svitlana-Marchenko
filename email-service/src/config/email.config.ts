@@ -1,4 +1,4 @@
-import {IRateEmailSchedularConfig} from "../services/scheduler/email.schedular.interface";
+import {IRateEmailMessageConfig} from "../services/scheduler/email.schedular.interface";
 import {IEmailConfig} from "../services/email/email.service.interface";
 
 export const emailConfig: IEmailConfig = {
@@ -8,7 +8,7 @@ export const emailConfig: IEmailConfig = {
     port: Number(process.env.EMAIL_PORT) || 587,
 };
 
-export const rateSchedularConfig: IRateEmailSchedularConfig = {
+export const rateMessageConfig: IRateEmailMessageConfig = {
     textTemplate: process.env.EMAIL_TEXT || '1 USD to UAH - {rate}',
     sender: process.env.EMAIL_SENDER as string,
     subject: process.env.EMAIL_SUBJECT || 'USD to UAH Exchange Rate',

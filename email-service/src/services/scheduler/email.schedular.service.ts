@@ -3,10 +3,10 @@ import logger from '../../helpers/logger'
 import {IRateService} from "../rate/rate.service.interface"
 import {IUserService} from "../user/user.service.interface";
 import {errorHandler} from "../../error/handler/error.handler";
-import {rateSchedularConfig} from "../../config/email.config";
+import {rateMessageConfig} from "../../config/email.config";
 import userService from "../user/user.service";
 import rateService from "../rate/rate.service";
-import {IRateEmailSchedularConfig} from "./email.schedular.interface";
+import {IRateEmailMessageConfig} from "./email.schedular.interface";
 import {IEmailDetails, IEmailSender} from "../email/email.service.interface";
 import emailService from "../email/email.service";
 
@@ -14,13 +14,13 @@ class EmailScheduler {
 
     private emailSender: IEmailSender
 
-    private rateEmailSchedularConfig :IRateEmailSchedularConfig
+    private rateEmailSchedularConfig :IRateEmailMessageConfig
 
     private rateService: IRateService;
 
     private userService: IUserService;
 
-    constructor(rateService: IRateService, userService: IUserService, emailSender: IEmailSender, rateEmailSchedularConfig :IRateEmailSchedularConfig) {
+    constructor(rateService: IRateService, userService: IUserService, emailSender: IEmailSender, rateEmailSchedularConfig :IRateEmailMessageConfig) {
         this.rateService = rateService;
         this.userService = userService;
         this.emailSender = emailSender;
@@ -61,4 +61,4 @@ class EmailScheduler {
     }
 }
 
-export default new EmailScheduler(rateService, userService, emailService, rateSchedularConfig);
+export default new EmailScheduler(rateService, userService, emailService, rateMessageConfig);

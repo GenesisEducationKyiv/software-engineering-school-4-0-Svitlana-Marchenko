@@ -7,9 +7,7 @@ export class EventService implements IEventService{
 
     async createEvent(event: IEvent): Promise<void> {
         await this.eventRepository.saveEvent(event);
-        //await emitEvent(event);
     }
-
 }
 
 export default new EventService(eventRepository)

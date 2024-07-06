@@ -13,6 +13,6 @@ app.listen(PORT, () => {
 
 })
 
-rabbitService.listenForEvents("queue", (event) => rabbitService.sendEmail(event)).then(() => logger.info('Start listening for event'))
+rabbitService.listenForEvents("email", (event) => rabbitService.sendEmail(event)).then(() => logger.info('Start listening for event'))
 
 export default app

@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
+import * as mongoose from "mongoose";
 
 export interface IEvent {
     aggregateId: string;
@@ -29,4 +30,4 @@ const eventSchema = new Schema({
     }
 });
 
-export const Event = model('Event', eventSchema);
+export const Event = mongoose.model('Event', eventSchema);

@@ -1,11 +1,10 @@
-import { Event, IEvent } from '../model/event.model';
+import { IEvent } from '../model/event.model';
 import {IEventRepository} from "./event.repository.interface";
+import {collections} from "../db/mongo.connection";
 
 export class EventRepository implements IEventRepository{
     async saveEvent(event: IEvent): Promise<void> {
-        const newEvent = new Event(event);
-        await newEvent.save();
-        console.log('Event stored:', event);
+       await collections.events!.insertOne(event);
     }
 }
 

@@ -1,6 +1,7 @@
 import {IEventService} from "../services/event.service.interface";
 import {errorHandler} from "../error/handler/error.handler";
 import eventService from "../services/event.service";
+import { Request, Response } from 'express';
 
 export class EventController{
 

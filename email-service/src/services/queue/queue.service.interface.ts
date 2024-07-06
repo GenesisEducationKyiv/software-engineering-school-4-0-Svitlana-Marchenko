@@ -1,3 +1,10 @@
 export interface IQueueService {
-    consumeMessages(): Promise<void>
+    listenForEvents(): Promise<void>
+}
+
+export interface IEvent {
+    aggregateId: string;
+    eventType: string;
+    timestamp: string;
+    data: string;
 }

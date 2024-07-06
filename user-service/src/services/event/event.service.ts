@@ -7,11 +7,11 @@ import {serviceErrorHandler} from "../../error/handler/error.handler";
 class EventService implements IEventService{
     constructor() {}
 
-    async addEvent(event:IEvent): Promise<void> {
+    async addEvent(event: IEvent): Promise<void> {
         try {
-            await axios.post(EVENT_API_URL);
+            await axios.post(EVENT_API_URL, event);
         } catch (error) {
-            serviceErrorHandler(error)
+            serviceErrorHandler(error);
         }
     }
 }

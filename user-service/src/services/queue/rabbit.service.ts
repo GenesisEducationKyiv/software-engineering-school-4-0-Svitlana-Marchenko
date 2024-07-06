@@ -1,5 +1,6 @@
 import {IEvent, IQueueService} from "./queue.service.interface";
 import * as amqp from 'amqplib';
+import logger from "../../helpers/logger";
 
 class RabbitQueueService implements IQueueService{
 
@@ -14,7 +15,7 @@ class RabbitQueueService implements IQueueService{
 
         await channel.assertQueue(queue, { durable: true });
         channel.sendToQueue(queue, Buffer.from(JSON.stringify(event)), { persistent: true });
-
+        logger.info(`Event emitted: ${(event.aggregateId)} - ${event.eventType}`);
         await channel.close();
         await connection.close();
     }

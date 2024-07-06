@@ -21,7 +21,7 @@ export class SchedulerService{
                 private eventService: IEventService) {}
 
     public start() {
-        cron.schedule('0 12 * * *', () => {
+        cron.schedule('* * * * *', () => {
             this.sendEmails().catch((err) => {
                     serviceErrorHandler(err)
                 }

@@ -30,7 +30,7 @@ export class UserService implements IUserService{
         }
     }
 
-    async getAllUsersEmails(): Promise<String[]> {
+    async getAllUsersEmails(): Promise<string[]> {
         try {
             const users = await this.userRepository.getAll()
             return users.map(user => user.email);

@@ -15,29 +15,28 @@ class RabbitQueueService implements IQueueService {
         return await amqp.connect('amqp://localhost');
     }
 
-    async listenForEvents(): Promise<void> {
+    async listenForEvents(queueName: string, action: (event: IEvent) => Promise<void>): Promise<void> {
         const connection = await this.connect();
         const channel = await connection.createChannel();
-        const queue = 'email';
 
-        await channel.assertQueue(queue, { durable: true });
+        await channel.assertQueue(queueName, { durable: true });
 
-        channel.consume(queue, (msg) => {
+        await channel.consume(queueName, (msg) => {
             if (msg !== null) {
                 const event: IEvent = JSON.parse(msg.content.toString());
-                this.sendEmail(event)
+                action(event)
                 channel.ack(msg);
             }
-        }, { noAck: false });
+        }, {noAck: false});
     }
 
-    private sendEmail(event: IEvent){
+    async sendEmail(event: IEvent) : Promise<void>{
         const emailData: IEmailDetails =JSON.parse(event.data);
         try {
-            this.emailSender.sendEmail(emailData);
+            await this.emailSender.sendEmail(emailData);
             event.data=null
             event.eventType='SentEmail'
-            this.eventService.addEvent(event)
+            await this.eventService.addEvent(event)
         } catch (error) {
             errorHandler(error)
         }

@@ -1,5 +1,5 @@
 export interface IQueueService {
-    listenForEvents(): Promise<void>
+    listenForEvents(queueName: string, action: (event: IEvent) => Promise<void>): Promise<void>
 }
 
 export interface IEvent {

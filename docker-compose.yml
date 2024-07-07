@@ -25,15 +25,29 @@ services:
         ports:
             - '5433:5432'
 
-    mongodb:
-        image: 'mongo:latest'
-        container_name: mongodb_container
+    postgres_email:
+        image: 'postgres:16.0'
+        container_name: postgres_email_container
+        env_file:
+            - .env
         environment:
-            MONGO_INITDB_DATABASE: 'event'
+            - 'POSTGRES_DB=${DB_NAME_EMAIL}'
+            - 'POSTGRES_PASSWORD=${DB_USER}'
+            - 'POSTGRES_USER=${DB_PASSWORD}'
         ports:
-            - '27017:27017'
-        volumes:
-            - mongo-data:/data/db
+            - '5434:5432'
+
+    postgres_rate:
+        image: 'postgres:16.0'
+        container_name: postgres_rate_container
+        env_file:
+            - .env
+        environment:
+            - 'POSTGRES_DB=${DB_NAME_RATE}'
+            - 'POSTGRES_PASSWORD=${DB_USER}'
+            - 'POSTGRES_USER=${DB_PASSWORD}'
+        ports:
+            - '5435:5432'
 
     rabbitmq:
         image: 'rabbitmq:3-management'

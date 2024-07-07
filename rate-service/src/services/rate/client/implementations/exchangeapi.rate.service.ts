@@ -1,7 +1,7 @@
 import {Fawazahmed0ExchangeRateData} from "./rate.client.interface";
 import axios from "axios";
-import logger from "../../../helpers/logger";
-import {EXCHANGE_API_URL} from "../../../config/rate.api.const";
+import logger from "../../../../helpers/logger";
+import {EXCHANGE_API_URL} from "../../../../config/rate.api.const";
 import {IRateChainService} from "../chain";
 
 export class ExchangeAPIRateService implements IRateChainService{

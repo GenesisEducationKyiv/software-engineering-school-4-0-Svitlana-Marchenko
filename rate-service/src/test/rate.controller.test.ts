@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import sinon from 'sinon';
-import rateService from "../services/rate.service";
+import rateService from "../services/rate/rate.service";
 import {RateController} from "../controllers/rate.controller";
 import RateApiError from "../error/types/rateApi.error";
 

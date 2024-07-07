@@ -1,7 +1,7 @@
 import {BankGovRateData} from "./rate.client.interface";
 import axios from "axios";
-import logger from "../../../helpers/logger";
-import {BANK_GOV_URL, CURRENCY} from "../../../config/rate.api.const";
+import logger from "../../../../helpers/logger";
+import {BANK_GOV_URL, CURRENCY} from "../../../../config/rate.api.const";
 import {IRateChainService} from "../chain";
 
 export class BankGovRateService implements IRateChainService{

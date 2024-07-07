@@ -1,4 +1,4 @@
-import RateApiError from "../../error/types/rateApi.error";
+import RateApiError from "../../../error/types/rateApi.error";
 
 export interface IChain{
     setNext(next: IChain): IChain;

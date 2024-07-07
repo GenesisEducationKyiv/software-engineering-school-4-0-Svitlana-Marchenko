@@ -1,7 +1,7 @@
 import {PrivateBankRateData} from "./rate.client.interface";
 import axios from "axios";
-import logger from "../../../helpers/logger";
-import {CURRENCY, PRIVATBANK_URL} from "../../../config/rate.api.const";
+import logger from "../../../../helpers/logger";
+import {CURRENCY, PRIVATBANK_URL} from "../../../../config/rate.api.const";
 import {IRateChainService} from "../chain";
 
 export class PrivatebankRateService implements IRateChainService{

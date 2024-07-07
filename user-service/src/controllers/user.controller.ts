@@ -11,13 +11,33 @@ export class UserController {
     async subscribeEmail(req: Request, res: Response): Promise<Response> {
         const {email} = req.body
          try {
-            await this.userService.subscribeEmail(email)
+            const user = await this.userService.subscribeEmail(email)
             logger.info(`Email ${email} was added to the database`)
-            return res.status(201).json({
-                message: `New email was added to the database`,
-            })
+            return res.status(201).json(user)
         } catch (error) {
              errorHandler(error, req, res)
+        }
+    }
+
+    async resubscribeEmail(req: Request, res: Response): Promise<Response> {
+        const {email} = req.body
+        try {
+            const user = await this.userService.resubscribeEmail(email)
+            logger.info(`User with email ${email} was resubscribed`)
+            return res.status(200).json(user)
+        } catch (error) {
+            errorHandler(error, req, res)
+        }
+    }
+
+    async unsubscribeEmail(req: Request, res: Response): Promise<Response> {
+        const {email} = req.body
+        try {
+            const user = await this.userService.unsubscribeEmail(email)
+            logger.info(`User with email ${email} was unsubscribed`)
+            return res.status(200).json(user)
+        } catch (error) {
+            errorHandler(error, req, res)
         }
     }
 

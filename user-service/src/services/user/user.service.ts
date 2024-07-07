@@ -1,8 +1,9 @@
-import { User } from '../../entity/user.entity'
+import {SubscriptionTypeEnum, User} from '../../entity/user.entity'
 import UserAlreadyExistError from '../../error/types/userAlreadyExist.error'
 import {IUserService} from "./user.service.interface";
 import {IUserRepository} from "../../repositories/user.repository.interface";
 import userRepository from "../../repositories/user.repository";
+import UserNotFoundError from "../../error/types/userNotFound.error";
 
 export class UserService implements IUserService{
 
@@ -19,6 +20,36 @@ export class UserService implements IUserService{
             return await this.userRepository.saveByEmail(email)
         } catch (error) {
             throw new Error('Error creating user: ' + (error as Error).message)
+        }
+    }
+
+    async resubscribeEmail(email: string): Promise<User> {
+        const user = await this.userRepository.getByEmail(email)
+
+        if (!user) {
+            throw new UserNotFoundError({message: `User with email ${email} has not been found`, logging: true});
+        }
+
+        try {
+            user.subscriptionType = SubscriptionTypeEnum.Active
+            return await this.userRepository.saveByUser(user)
+        } catch (error) {
+            throw new Error('Error resubscribing user: ' + (error as Error).message)
+        }
+    }
+
+    async unsubscribeEmail(email: string): Promise<User> {
+        const user = await this.userRepository.getByEmail(email)
+
+        if (!user) {
+            throw new UserNotFoundError({message: `User with email ${email} has not been found`, logging: true});
+        }
+
+        try {
+            user.subscriptionType = SubscriptionTypeEnum.Cancelled
+            return await this.userRepository.saveByUser(user)
+        } catch (error) {
+            throw new Error('Error unsubscribing user: ' + (error as Error).message)
         }
     }
 

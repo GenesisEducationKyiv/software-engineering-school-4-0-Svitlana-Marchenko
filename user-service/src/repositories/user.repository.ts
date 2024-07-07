@@ -1,6 +1,6 @@
 import {IUserRepository} from "./user.repository.interface";
 import {Repository} from "typeorm/repository/Repository";
-import {User} from "../entity/user.entity";
+import {SubscriptionTypeEnum, User} from "../entity/user.entity";
 import {v4 as uuidv4} from "uuid";
 import {dataSource} from "../config/dataSource";
 
@@ -12,7 +12,7 @@ export class UserRepository implements IUserRepository {
     }
 
     private create(email: string): User {
-        return this.repository.create({ id: uuidv4(), email })
+        return this.repository.create({ id: uuidv4(), email: email, subscriptionType: SubscriptionTypeEnum.Active })
     }
 
     getAll(): Promise<User[]> {

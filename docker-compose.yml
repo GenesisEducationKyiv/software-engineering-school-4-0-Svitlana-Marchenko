@@ -1,20 +1,45 @@
 version: '3.9'
 
 services:
-    postgres:
+    postgres_user:
         image: 'postgres:16.0'
-        container_name: postgres_container
+        container_name: postgres_user_container
         env_file:
             - .env
         environment:
-            - 'POSTGRES_DB=${DB_NAME}'
+            - 'POSTGRES_DB=${DB_NAME_USER}'
             - 'POSTGRES_PASSWORD=${DB_USER}'
             - 'POSTGRES_USER=${DB_PASSWORD}'
         ports:
             - '5432:5432'
-    server:
-        build: .
+
+    postgres_event:
+        image: 'postgres:16.0'
+        container_name: postgres_event_container
+        env_file:
+            - .env
+        environment:
+            - 'POSTGRES_DB=${DB_NAME_EVENT}'
+            - 'POSTGRES_PASSWORD=${DB_USER}'
+            - 'POSTGRES_USER=${DB_PASSWORD}'
         ports:
-            - '3000:3000'
-        depends_on:
-            - postgres
+            - '5433:5432'
+
+    mongodb:
+        image: 'mongo:latest'
+        container_name: mongodb_container
+        environment:
+            MONGO_INITDB_DATABASE: 'event'
+        ports:
+            - '27017:27017'
+        volumes:
+            - mongo-data:/data/db
+
+    rabbitmq:
+        image: 'rabbitmq:3-management'
+        container_name: rabbitmq_container
+        ports:
+            - '5672:5672'
+            - '15672:15672'
+volumes:
+    mongo-data:

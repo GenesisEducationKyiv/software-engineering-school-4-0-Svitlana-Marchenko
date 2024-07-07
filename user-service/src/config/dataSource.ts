@@ -8,12 +8,11 @@ export const dataSource = new DataSource({
     port: 5432,
     username: 'root',
     password: 'root',
-    database: 'currency_api',
+    database: 'user',
     entities: [User],
     synchronize: false,
-    migrations: [],
-    // migrations: ['src/migrations/*.ts'],
-    // migrationsTableName: 'migrations',
+    migrations: ['src/migrations/*.ts'],
+    migrationsTableName: 'migrations',
     logging: false,
 })
 

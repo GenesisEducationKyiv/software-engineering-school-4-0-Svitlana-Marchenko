@@ -3,6 +3,7 @@ import { BaseError } from "../base.error";
 import UserAlreadyExistError from "../types/userAlreadyExist.error";
 import BadRequestError from "../types/badRequest.error";
 import logger from "../../helpers/logger";
+import UserNotFoundError from "../types/userNotFound.error";
 
 export const errorHandler = (err: Error,
                              req: Request,
@@ -24,6 +25,8 @@ export const errorHandler = (err: Error,
         return res.status(409).send({ errors });
     } else if ( err instanceof BadRequestError) {
         return res.status(400).send({ errors });
+    } else if(err instanceof UserNotFoundError) {
+        return res.status(404).send({ errors });
     }
 
     return res.status(500).send({ errors: [{ message: "Something went wrong" }] });

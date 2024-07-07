@@ -1,14 +1,16 @@
 import { IEvent, IQueueService } from "./queue.service.interface";
 import * as amqp from 'amqplib';
-import emailService from "../email/email.service";
-import {IEmailDetails, IEmailSender} from "../email/email.service.interface";
 import {errorHandler} from "../../error/handler/error.handler";
 import {IEventService} from "../event/event.service.interface";
 import eventService from "../event/event.service";
+import {IUserService} from "../user/user.service.interface";
+import userService from "../user/user.service";
+import {IRateService} from "../rate/rate.service.interface";
+import rateService from "../rate/rate.service";
 
 class RabbitQueueService implements IQueueService {
 
-    constructor(private emailSender: IEmailSender, private eventService: IEventService) {
+    constructor(private rateService: IRateService, private userService: IUserService, private eventService: IEventService) {
     }
 
     private async connect(): Promise<amqp.Connection> {
@@ -30,12 +32,30 @@ class RabbitQueueService implements IQueueService {
         }, {noAck: false});
     }
 
-    async sendEmail(event: IEvent) : Promise<void>{
-        const emailData: IEmailDetails =JSON.parse(event.data);
+    async addUser(event: IEvent) : Promise<void>{
+        const email: string =JSON.parse(event.data);
         try {
-            await this.emailSender.sendEmail(emailData);
-            event.data=null
-            event.eventType='SentEmail'
+            await this.userService.addEmail(email)
+            await this.eventService.addEvent(event)
+        } catch (error) {
+            errorHandler(error)
+        }
+    }
+
+    async removeUser(event: IEvent) : Promise<void>{
+        const email: string =JSON.parse(event.data);
+        try {
+            await this.userService.removeEmail(email)
+            await this.eventService.addEvent(event)
+        } catch (error) {
+            errorHandler(error)
+        }
+    }
+
+    async changeRate(event: IEvent) : Promise<void>{
+        const rate: number =JSON.parse(event.data);
+        try {
+            await this.rateService.saveNewRate(rate)
             await this.eventService.addEvent(event)
         } catch (error) {
             errorHandler(error)
@@ -43,4 +63,4 @@ class RabbitQueueService implements IQueueService {
     }
 }
 
-export default new RabbitQueueService(emailService, eventService);
+export default new RabbitQueueService(rateService, userService, eventService);

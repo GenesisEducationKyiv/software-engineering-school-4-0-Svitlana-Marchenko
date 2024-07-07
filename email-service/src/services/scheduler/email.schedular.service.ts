@@ -9,28 +9,19 @@ import rateService from "../rate/rate.service";
 import {IRateEmailMessageConfig} from "./email.schedular.interface";
 import {IEmailDetails, IEmailSender} from "../email/email.service.interface";
 import emailService from "../email/email.service";
+import {IEvent} from "../queue/queue.service.interface";
+import {IEventService} from "../event/event.service.interface";
+import eventService from "../event/event.service";
+import {v4 as uuid} from 'uuid'
 
 class EmailScheduler {
 
-    private emailSender: IEmailSender
-
-    private rateEmailSchedularConfig :IRateEmailMessageConfig
-
-    private rateService: IRateService;
-
-    private userService: IUserService;
-
-    constructor(rateService: IRateService, userService: IUserService, emailSender: IEmailSender, rateEmailSchedularConfig :IRateEmailMessageConfig) {
-        this.rateService = rateService;
-        this.userService = userService;
-        this.emailSender = emailSender;
-        this.rateEmailSchedularConfig = rateEmailSchedularConfig;
-    }
+    constructor(private rateService: IRateService, private userService: IUserService, private emailSender: IEmailSender, private rateEmailSchedularConfig: IRateEmailMessageConfig, private eventService: IEventService) {}
 
     public start() {
         cron.schedule('0 12 * * *', () => {
             this.sendEmails().catch((err) => {
-                errorHandler(err)
+                    errorHandler(err)
                 }
             );
         });
@@ -56,9 +47,18 @@ class EmailScheduler {
                 subject: this.rateEmailSchedularConfig.subject,
                 text: emailText,
             };
-                await this.emailSender.sendEmail(emailDetails);
+            await this.emailSender.sendEmail(emailDetails);
+
+            const eventData: IEvent = {
+                aggregateId: uuid(),
+                eventType: 'SentEmail',
+                timestamp: new Date().toString(),
+                data: JSON.stringify(emailDetails)
+            };
+
+            await this.eventService.addEvent(eventData)
         }
     }
 }
 
-export default new EmailScheduler(rateService, userService, emailService, rateMessageConfig);
+export default new EmailScheduler(rateService, userService, emailService, rateMessageConfig, eventService);

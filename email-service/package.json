@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/server.js",
+    "start": "ts-node src/server.ts",
     "build": "tsc",
     "typeorm": "typeorm-ts-node-commonjs",
     "typeorm:migration": " npm run typeorm migration:run -- -d ./src/config/dataSource.ts"

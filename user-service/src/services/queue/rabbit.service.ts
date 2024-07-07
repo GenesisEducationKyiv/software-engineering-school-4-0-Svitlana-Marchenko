@@ -8,10 +8,9 @@ class RabbitQueueService implements IQueueService{
         return await amqp.connect('amqp://localhost');
     }
 
-    async emitEvent(event: IEvent): Promise<void> {
+    async emitEvent(event: IEvent, queue: string): Promise<void> {
         const connection = await this.connect();
         const channel = await connection.createChannel();
-        const queue = 'email';
 
         await channel.assertQueue(queue, { durable: true });
         channel.sendToQueue(queue, Buffer.from(JSON.stringify(event)), { persistent: true });

@@ -59,7 +59,7 @@ export class SchedulerService{
             };
 
             await this.eventService.addEvent(eventData)
-            await this.queueService.emitEvent(eventData)
+            await this.queueService.emitEvent(eventData, "email")
 
         }
     }

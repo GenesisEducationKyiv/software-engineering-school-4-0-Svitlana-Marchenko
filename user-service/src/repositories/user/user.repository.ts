@@ -1,8 +1,8 @@
 import {IUserRepository} from "./user.repository.interface";
 import {Repository} from "typeorm/repository/Repository";
-import {SubscriptionTypeEnum, User} from "../entity/user.entity";
+import {SubscriptionTypeEnum, User} from "../../entity/user.entity";
 import {v4 as uuidv4} from "uuid";
-import {dataSource} from "../config/dataSource";
+import {dataSource} from "../../config/dataSource";
 
 export class UserRepository implements IUserRepository {
     constructor(private repository: Repository<User>) {}

@@ -1,8 +1,8 @@
 import {SubscriptionTypeEnum, User} from '../../entity/user.entity'
 import UserAlreadyExistError from '../../error/types/userAlreadyExist.error'
 import {IUserService} from "./user.service.interface";
-import {IUserRepository} from "../../repositories/user.repository.interface";
-import userRepository from "../../repositories/user.repository";
+import {IUserRepository} from "../../repositories/user/user.repository.interface";
+import userRepository from "../../repositories/user/user.repository";
 import UserNotFoundError from "../../error/types/userNotFound.error";
 
 export class UserService implements IUserService{

@@ -1,5 +1,5 @@
-import {IEvent} from "../model/event.model";
+import {Event} from "../entity/event.entity";
 
 export interface IEventRepository{
-    saveEvent(event: IEvent): Promise<void>
+    saveEvent(event: Event): Promise<Event>
 }

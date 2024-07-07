@@ -1,11 +1,17 @@
-import { IEvent } from '../model/event.model';
 import {IEventRepository} from "./event.repository.interface";
-import {collections} from "../db/mongo.connection";
+import {Event} from "../entity/event.entity";
+import {Repository} from "typeorm";
+import {dataSource} from "../config/dataSource";
+import {EventMapper} from "../mapper/event.mapper";
 
 export class EventRepository implements IEventRepository{
-    async saveEvent(event: IEvent): Promise<void> {
-       await collections.events!.insertOne(event);
+
+    constructor(private repository: Repository<Event>) {}
+
+    async saveEvent(event: Event): Promise<Event> {
+        const savedEvent = await this.repository.save(event);
+        return EventMapper.toDTO(savedEvent)
     }
 }
 
-export default new EventRepository()
+export default new EventRepository(dataSource.getRepository(Event))

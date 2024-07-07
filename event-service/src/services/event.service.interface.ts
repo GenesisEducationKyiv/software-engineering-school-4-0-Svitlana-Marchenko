@@ -1,5 +1,5 @@
-import {IEvent} from "../model/event.model";
+import {EventDTO} from "../dto/event.dto";
 
 export interface IEventService{
-    createEvent(event: IEvent, ): Promise<void>
+    createEvent(event: EventDTO ): Promise<EventDTO>
 }

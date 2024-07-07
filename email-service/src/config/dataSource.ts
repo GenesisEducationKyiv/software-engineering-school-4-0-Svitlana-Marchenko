@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import {Email} from "../entity/email.enitity";
+import {Rate} from "../entity/rate.entity";
 
 export const dataSource = new DataSource({
     type: 'postgres',
@@ -8,8 +9,8 @@ export const dataSource = new DataSource({
     port: 5434,
     username: 'root',
     password: 'root',
-    database: 'email',
-    entities: [Email],
+    database: 'email_service',
+    entities: [Email, Rate],
     synchronize: false,
     migrations: ['src/migrations/*.ts'],
     migrationsTableName: 'migrations',

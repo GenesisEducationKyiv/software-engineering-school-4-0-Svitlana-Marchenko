@@ -1,19 +1,19 @@
 import {IRateService} from "./rate.service.interface";
-import axios from "axios";
 import {errorHandler} from "../../error/handler/error.handler";
-import {RATE_API_URL} from "../../config/system.config";
+import {IRateRepository} from "../../repositories/rate/rate.repository.interface";
+import rateRepository from "../../repositories/rate/rate.repository";
 
 export class RateService implements IRateService {
 
-    constructor() {}
+    constructor(private rateRepository: IRateRepository) {}
 
     async getExchangeRate(): Promise<number> {
         try {
-            const response = await axios.get(RATE_API_URL);
-            return response.data;
+            const rate = await this.rateRepository.getRate()
+            return rate.rate
         } catch (error) {
             errorHandler(error)
         }
     }
 }
-export default new RateService();
+export default new RateService(rateRepository);

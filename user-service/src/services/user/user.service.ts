@@ -4,10 +4,13 @@ import {IUserService} from "./user.service.interface";
 import {IUserRepository} from "../../repositories/user/user.repository.interface";
 import userRepository from "../../repositories/user/user.repository";
 import UserNotFoundError from "../../error/types/userNotFound.error";
+import {IEvent, IQueueService} from "../queue/queue.service.interface";
+import {v4 as uuid} from 'uuid'
+import rabbitService from "../queue/rabbit.service";
 
 export class UserService implements IUserService{
 
-    constructor(private userRepository: IUserRepository) {}
+    constructor(private userRepository: IUserRepository, private queueService: IQueueService) {}
 
     async subscribeEmail(email: string): Promise<User> {
         const user = await this.userRepository.getByEmail(email)
@@ -17,6 +20,13 @@ export class UserService implements IUserService{
         }
       
         try {
+            const userData: IEvent = {
+                aggregateId: uuid(),
+                eventType: 'EmailChanged',
+                timestamp: new Date().toString(),
+                data: JSON.stringify(email)
+            };
+            await this.queueService.emitEvent(userData, "emailSubscribe")
             return await this.userRepository.saveByEmail(email)
         } catch (error) {
             throw new Error('Error creating user: ' + (error as Error).message)
@@ -32,6 +42,15 @@ export class UserService implements IUserService{
 
         try {
             user.subscriptionType = SubscriptionTypeEnum.Active
+
+            const userData: IEvent = {
+                aggregateId: uuid(),
+                eventType: 'EmailChanged',
+                timestamp: new Date().toString(),
+                data: JSON.stringify(email)
+            };
+            await this.queueService.emitEvent(userData, "emailSubscribe")
+
             return await this.userRepository.saveByUser(user)
         } catch (error) {
             throw new Error('Error resubscribing user: ' + (error as Error).message)
@@ -47,6 +66,13 @@ export class UserService implements IUserService{
 
         try {
             user.subscriptionType = SubscriptionTypeEnum.Cancelled
+            const userData: IEvent = {
+                aggregateId: uuid(),
+                eventType: 'EmailChanged',
+                timestamp: new Date().toString(),
+                data: JSON.stringify(email)
+            };
+            await this.queueService.emitEvent(userData, "emailUnsubscribe")
             return await this.userRepository.saveByUser(user)
         } catch (error) {
             throw new Error('Error unsubscribing user: ' + (error as Error).message)
@@ -70,4 +96,4 @@ export class UserService implements IUserService{
         }
     }
 }
-export default new UserService(userRepository)
+export default new UserService(userRepository, rabbitService)

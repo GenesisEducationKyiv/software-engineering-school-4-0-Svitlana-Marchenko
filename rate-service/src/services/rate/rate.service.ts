@@ -7,6 +7,7 @@ import {IRateRepository} from "../../repository/rate/rate.repository.interface";
 import rateRepository from "../../repository/rate/rate.repository";
 import {IEvent, IQueueService} from "../queue/queue.service.interface";
 import rabbitService from "../queue/rabbit.service";
+import {Rate} from "../../entity/rate.entity";
 
 export class RateService implements IRateService {
 
@@ -17,10 +18,11 @@ export class RateService implements IRateService {
     async getExchangeRate(): Promise<number> {
         logger.debug("Getting rate from api")
         const rate = await this.rateRepository.getRate()
-        if(rate && rate.date == new Date()){
+        if(rate && new Date(rate.date).setHours(0,0,0,0) == new Date().setHours(0,0,0,0)){
             return rate.rate
         }
         const newRate =  await this.baseChain.getExchangeRate()
+        await this.eventQueueAboutChangingRate(newRate, rate)
         await rateRepository.saveNewRate(newRate);
         return newRate
     }
@@ -28,17 +30,21 @@ export class RateService implements IRateService {
     async updateExchangeRate(): Promise<number> {
         const rate = await this.rateRepository.getRate()
         const newRate =  await this.baseChain.getExchangeRate()
-        if(rate && rate.rate != newRate){
+        await this.eventQueueAboutChangingRate(newRate, rate)
+        await rateRepository.saveNewRate(newRate);
+        return newRate
+    }
+
+    private async eventQueueAboutChangingRate(rate: number, prevRate: Rate) {
+        if (prevRate && rate != prevRate.rate) {
             const rateData: IEvent = {
                 aggregateId: uuid(),
                 eventType: 'RateChanged',
                 timestamp: new Date().toString(),
-                data: JSON.stringify(newRate)
+                data: JSON.stringify(rate)
             };
             await this.queueService.emitEvent(rateData, "rate")
         }
-        await rateRepository.saveNewRate(newRate);
-        return newRate
     }
 }
 

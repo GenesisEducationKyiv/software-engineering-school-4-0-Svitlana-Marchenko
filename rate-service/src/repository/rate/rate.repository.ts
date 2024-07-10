@@ -7,12 +7,14 @@ import {dataSource} from "../../config/dataSource";
 export class RateRepository implements IRateRepository {
 
     constructor(private repository: Repository<Rate>) {}
-    async getRate(): Promise<Rate> {
-        return await this.repository.findOne({
+    async getRate(): Promise<Rate | null> {
+        const rates = await this.repository.find({
             order: {
                 date: 'DESC'
-            }
+            },
+            take: 1
         });
+        return rates.length > 0 ? rates[0] : null;
     }
 
     async saveNewRate(rate: number): Promise<Rate> {

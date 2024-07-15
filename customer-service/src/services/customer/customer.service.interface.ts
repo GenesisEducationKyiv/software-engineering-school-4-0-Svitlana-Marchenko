@@ -1,0 +1,6 @@
+import {Customer} from "../../entities/customer.entity";
+
+
+export interface ICustomerService {
+    getAllUsers(): Promise<Customer[]>;
+}

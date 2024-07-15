@@ -3,6 +3,7 @@ import logger from '../helpers/logger'
 import {IUserService} from "../services/user/user.service.interface";
 import userService from "../services/user/user.service";
 import {errorHandler} from "../error/handler/error.handler";
+import {UserMapper} from "../mapper/user.mapper";
 
 export class UserController {
 
@@ -45,7 +46,7 @@ export class UserController {
         try {
             const users = await this.userService.getAllUsers();
             logger.debug(`Getting (${users.length}) users from db`);
-            return res.status(200).json(users);
+            return res.status(200).json(users.map(x => UserMapper.toDTO(x)));
         } catch (error) {
             logger.error(`Error getting users: ${error.message}`);
             return errorHandler(error, req, res);

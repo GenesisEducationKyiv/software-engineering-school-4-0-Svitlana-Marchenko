@@ -6,10 +6,10 @@ import {Customer} from "../entities/customer.entity";
 export const dataSource = new DataSource({
     type: 'postgres',
     host: 'localhost',
-    port: 5432,
+    port: 5436,
     username: 'root',
     password: 'root',
-    database: 'user',
+    database: 'customer_service',
     entities: [Customer],
     synchronize: false,
     migrations: ['src/migrations/*.ts'],

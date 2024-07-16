@@ -2,17 +2,31 @@ import {ICustomerService} from "./customer.service.interface";
 import {ICustomerRepository} from "../../repositories/customer/customer.repository.interface";
 import {Customer} from "../../entities/customer.entity";
 import customerRepository from "../../repositories/customer/customer.repository";
+import CustomerAlreadyExistError from "../../errors/types/customerAlreadyExist.error";
 
-export class CustomerService implements ICustomerService{
+export class CustomerService implements ICustomerService {
 
-    constructor(private userRepository: ICustomerRepository) {}
+    constructor(private customerRepository: ICustomerRepository) {
+    }
 
     async getAllUsers(): Promise<Customer[]> {
         try {
-            return await this.userRepository.getAll()
+            return await this.customerRepository.getAll()
         } catch (error) {
             throw new Error('Error getting all users email: ' + (error as Error).message)
         }
     }
+
+    async addCustomer(email: string): Promise<Customer> {
+        const user = await this.customerRepository.getByEmail(email)
+        if (user) {
+            throw new CustomerAlreadyExistError({
+                message: `Customer with email ${email} has been added before`,
+                logging: true
+            });
+        }
+        return await this.customerRepository.saveByEmail(email)
+    }
 }
+
 export default new CustomerService(customerRepository)

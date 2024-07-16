@@ -20,6 +20,17 @@ export class CustomerController {
         }
     }
 
+    async addCustomer(req: Request, res: Response): Promise<Response> {
+        const {email} = req.body
+        try {
+            const user = await this.customerService.addCustomer(email)
+            logger.info(`Customer with email ${email} was added to db`)
+            res.status(202).json(user);
+        } catch (error) {
+            errorHandler(error, req, res)
+        }
+    }
+
 }
 
 export default new CustomerController(customerService)

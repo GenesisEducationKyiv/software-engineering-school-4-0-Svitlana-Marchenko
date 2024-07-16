@@ -6,8 +6,7 @@ import CustomerAlreadyExistError from "../../errors/types/customerAlreadyExist.e
 
 export class CustomerService implements ICustomerService {
 
-    constructor(private customerRepository: ICustomerRepository) {
-    }
+    constructor(private customerRepository: ICustomerRepository) {}
 
     async getAllUsers(): Promise<Customer[]> {
         try {

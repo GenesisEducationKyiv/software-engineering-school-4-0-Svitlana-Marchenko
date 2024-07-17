@@ -26,6 +26,10 @@ export class CustomerService implements ICustomerService {
         }
         return await this.customerRepository.saveByEmail(email)
     }
+
+    async deleteCustomerByEmail(email: string): Promise<void> {
+        await this.customerRepository.deleteByEmail(email);
+    }
 }
 
 export default new CustomerService(customerRepository)

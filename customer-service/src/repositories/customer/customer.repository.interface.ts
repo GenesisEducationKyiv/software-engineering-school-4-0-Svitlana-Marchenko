@@ -8,4 +8,6 @@ export interface ICustomerRepository{
 
     saveByEmail(email: string): Promise<Customer>
 
+    deleteByEmail(email: string): Promise<void>;
+
 }

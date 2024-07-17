@@ -23,6 +23,10 @@ export class CustomerRepository implements ICustomerRepository {
         return await this.repository.save(this.create(email))
     }
 
+    async deleteByEmail(email: string): Promise<void> {
+        await this.repository.delete({ email });
+    }
+
 }
 
 export default new CustomerRepository(dataSource.getRepository(Customer))

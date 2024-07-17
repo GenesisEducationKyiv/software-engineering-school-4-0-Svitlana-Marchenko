@@ -25,12 +25,22 @@ export class CustomerController {
         try {
             const user = await this.customerService.addCustomer(email)
             logger.info(`Customer with email ${email} was added to db`)
-            res.status(202).json(user);
+            res.status(202).json(CustomerMapper.toDTO(user));
         } catch (error) {
             errorHandler(error, req, res)
         }
     }
 
+    async deleteCustomer(req: Request, res: Response): Promise<Response> {
+        const { email } = req.body;
+        try {
+            await this.customerService.deleteCustomerByEmail(email);
+            logger.info(`Customer with email ${email} was deleted from db`);
+            return res.status(200).json({ message: `Customer with email ${email} was deleted.` });
+        } catch (error) {
+            return errorHandler(error, req, res);
+        }
+    }
 }
 
 export default new CustomerController(customerService)

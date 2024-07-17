@@ -5,14 +5,15 @@ import {v4 as uuidv4} from "uuid";
 import {dataSource} from "../../config/dataSource";
 
 export class UserRepository implements IUserRepository {
-    constructor(private repository: Repository<User>) {}
+    constructor(private repository: Repository<User>) {
+    }
 
-   async getByEmail(email: string): Promise<User> {
-        return await this.repository.findOne({ where: { email } })
+    async getByEmail(email: string): Promise<User> {
+        return await this.repository.findOne({where: {email}})
     }
 
     private create(email: string): User {
-        return this.repository.create({ id: uuidv4(), email: email, subscriptionType: SubscriptionTypeEnum.Active })
+        return this.repository.create({id: uuidv4(), email: email, subscriptionType: SubscriptionTypeEnum.Active})
     }
 
     getAll(): Promise<User[]> {
@@ -23,8 +24,12 @@ export class UserRepository implements IUserRepository {
         return this.saveByUser(this.create(email))
     }
 
-   async saveByUser(user: User): Promise<User> {
+    async saveByUser(user: User): Promise<User> {
         return await this.repository.save(user);
+    }
+
+    async deleteByEmail(email: string): Promise<void> {
+        await this.repository.delete({email});
     }
 }
 

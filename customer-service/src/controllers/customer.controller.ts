@@ -15,7 +15,6 @@ export class CustomerController {
             logger.debug(`Getting (${users.length}) users from db`);
             return res.status(200).json(users.map(x => CustomerMapper.toDTO(x)));
         } catch (error) {
-            logger.error(`Error getting users: ${error.message}`);
             return errorHandler(error, req, res);
         }
     }
@@ -25,7 +24,7 @@ export class CustomerController {
         try {
             const user = await this.customerService.addCustomer(email)
             logger.info(`Customer with email ${email} was added to db`)
-            res.status(202).json(CustomerMapper.toDTO(user));
+            return res.status(202).json(CustomerMapper.toDTO(user));
         } catch (error) {
             errorHandler(error, req, res)
         }

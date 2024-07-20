@@ -1,0 +1,2 @@
+export const USER_API_URL = `${process.env.USER_API_HOST}:${process.env.USER_API_PORT}${process.env.USER_API_PATH}` || "http://localhost:3001/api/user";
+export const CUSTOMER_API_URL = `${process.env.CUSTOMER_API_HOST}:${process.env.CUSTOMER_API_PORT}${process.env.CUSTOMER_API_PATH}` || "http://localhost:3005/api/customer";

@@ -23,7 +23,7 @@ export class UserController {
     async addUser(req: Request, res: Response): Promise<Response> {
         const {email} = req.body
         try {
-            const user = await this.userService.subscribeEmail(email)
+            const user = await this.userService.addUser(email)
             logger.info(`Email ${email} was added to db`)
             return res.status(202).json(user);
         } catch (error) {

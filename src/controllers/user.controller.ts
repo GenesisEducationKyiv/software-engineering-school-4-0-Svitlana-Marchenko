@@ -1,10 +1,7 @@
 import {Request, Response} from 'express'
-import logger from '../helpers/logger'
 import {IUserService} from "../services/user/user.service.interface";
-import {UserService} from "../services/user/user.service";
-import {dataSource} from "../dataSource";
-import {User} from "../entity/user.entity";
 import {errorHandler} from "../error/handler/error.handler";
+import loggerBase from "../helpers/logger/logger.base";
 
 export class UserController {
 
@@ -14,7 +11,7 @@ export class UserController {
         const {email} = req.body
          try {
             await this.userService.subscribeEmail(email)
-            logger.info(`Email ${email} was added to the database`)
+             loggerBase.log('info', `Email ${email} was added to the database`)
             return res.status(201).json({
                 message: `New email was added to the database`,
             })

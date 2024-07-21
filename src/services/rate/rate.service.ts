@@ -1,10 +1,7 @@
 import {IRateService} from "./rate.service.interface";
 import {BaseChain} from "./client/chain";
-import logger from "../../helpers/logger";
 import privatBankChain from "./client/rate.chain.const";
-import axios from 'axios';
-import {IRateService, RateData} from "./rate.service.interface";
-import RateApiError from "../../error/types/rateApi.error";
+import loggerBase from "../../helpers/logger/logger.base";
 
 export class RateService implements IRateService {
 
@@ -13,7 +10,7 @@ export class RateService implements IRateService {
     }
 
     async getExchangeRate(): Promise<number> {
-        logger.debug("Getting rate from api")
+        loggerBase.log('debug', "Getting rate from api")
         return this.baseChain.getExchangeRate()
     }
 }

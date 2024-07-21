@@ -2,6 +2,7 @@ import {Fawazahmed0ExchangeRateData, IRateService} from "../rate.service.interfa
 import axios from "axios";
 import {EXCHANGE_API_URL} from "../../../config/rate.api.const";
 import rateLogger from "../../../helpers/logger/custom/rate.logger";
+import RateApiError from "../../../error/types/rateApi.error";
 
 export class ExchangeAPIRateService implements IRateService{
 
@@ -10,7 +11,7 @@ export class ExchangeAPIRateService implements IRateService{
         rateLogger.rateLog('info', 'cdn.jsdelivr.net', response.data);
         const rateData = response.data.usd.uah;
         if (!rateData) {
-            throw new Error('Currency data not found');
+            throw new RateApiError({message: 'Currency data not found', logging: true});
         }
         return rateData;
     }

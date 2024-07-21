@@ -1,8 +1,8 @@
 import {Request, Response} from 'express'
-import logger from '../helpers/logger'
 import {IRateService} from "../services/rate/rate.service.interface";
 import rateService from "../services/rate/rate.service";
 import {errorHandler} from "../error/handler/error.handler";
+import loggerBase from "../helpers/logger/logger.base";
 
 export class RateController {
 
@@ -10,7 +10,7 @@ export class RateController {
 
     async getRate(req: Request, res: Response): Promise<Response> {
         try {
-            logger.debug(`Getting currency rate`)
+            loggerBase.log('debug', `Getting currency rate`)
             const exchangeRate = await this.rateService.getExchangeRate()
             return res.status(200).json(exchangeRate)
         } catch (error) {

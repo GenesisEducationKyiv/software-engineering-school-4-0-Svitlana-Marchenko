@@ -2,11 +2,18 @@
 
 Author: Svitlana Marchenko
 
-Language: NodeJs (using Express framework and Sequelize ORM)
+Language: NodeJs (using Express framework and TypeORM)
 
 Task: https://github.com/Falko05/se_school/blob/main/gses2swagger.yaml
 
 Exchange Rate API: https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5
+
+## Possible alerts
+- ### Rate microservice
+    - ``daily_get_exchange_rate_calls`` could help to check if getting rate is available and be used. If this metric < 100 after 10am - smth might be wrong
+    - ``daily_get_exchange_rate_fails`` could help to check if getting rate fails. If this metric > 10 - smth might be wrong
+    - ``daily_send_email_calls`` could help to check if sending email method be used. If this metric < 10 after 12pm - smth might be wrong
+    - ``daily_send_email_fails`` could help to check if sending email method fails. If this metric > 10 - smth might be wrong
 
 ## Additional Features
 

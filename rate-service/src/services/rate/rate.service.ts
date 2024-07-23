@@ -8,23 +8,31 @@ import rateRepository from "../../repository/rate/rate.repository";
 import {IEvent, IQueueService} from "../queue/queue.service.interface";
 import rabbitService from "../queue/rabbit.service";
 import {Rate} from "../../entity/rate.entity";
+import {IRateMetricService} from "../metrics/rate/rate.metric.service.interface";
+import rateMetricService from "../metrics/rate/rate.metric.service";
 
 export class RateService implements IRateService {
 
-    constructor(private baseChain: IChain, private rateRepository: IRateRepository, private queueService: IQueueService) {
+    constructor(private baseChain: IChain, private rateRepository: IRateRepository, private queueService: IQueueService, private metricService: IRateMetricService) {
         this.baseChain = baseChain
     }
 
     async getExchangeRate(): Promise<number> {
         logger.debug("Getting rate from api")
-        const rate = await this.rateRepository.getRate()
-        if(rate && new Date(rate.date).setHours(0,0,0,0) == new Date().setHours(0,0,0,0)){
-            return rate.rate
+        this.metricService.addGetRateCall()
+        try {
+            const rate = await this.rateRepository.getRate()
+            if(rate && new Date(rate.date).setHours(0,0,0,0) == new Date().setHours(0,0,0,0)){
+                return rate.rate
+            }
+            const newRate =  await this.baseChain.getExchangeRate()
+            await this.eventQueueAboutChangingRate(newRate, rate)
+            await rateRepository.saveNewRate(newRate);
+            return newRate
+        } catch (error) {
+            this.metricService.addGetRateFailed()
+            throw error
         }
-        const newRate =  await this.baseChain.getExchangeRate()
-        await this.eventQueueAboutChangingRate(newRate, rate)
-        await rateRepository.saveNewRate(newRate);
-        return newRate
     }
 
     async updateExchangeRate(): Promise<number> {
@@ -48,4 +56,4 @@ export class RateService implements IRateService {
     }
 }
 
-export default new RateService(privatBankChain, rateRepository, rabbitService);
+export default new RateService(privatBankChain, rateRepository, rabbitService, rateMetricService);

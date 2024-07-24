@@ -5,14 +5,17 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import rabbitService from "./services/queue/rabbit.service";
 import logger from "./helpers/logger";
+import metricRoute from './routers/metric.router'
 import {dataSource} from "./config/dataSource";
 import emailSchedularService from "./services/scheduler/email.schedular.service";
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3003
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+app.use('/metrics', metricRoute)
 
 dataSource
     .initialize()

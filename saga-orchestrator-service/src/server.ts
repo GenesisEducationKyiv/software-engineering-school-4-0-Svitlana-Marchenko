@@ -8,7 +8,7 @@ import rabbitService from "./services/queue/rabbit.service";
 import logger from "./helpers/logger";
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3006
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())

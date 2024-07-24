@@ -1,4 +1,4 @@
-import client from 'prom-client';
+import client, {Registry} from 'prom-client';
 import cron from 'node-cron';
 import {IMetricsService} from "./metric.service.interface";
 
@@ -55,6 +55,10 @@ export class MetricsService implements IMetricsService {
             this.setGauge(key, this.dailyCounters[key]);
             this.dailyCounters[key] = 0;
         }
+    }
+
+    getRegister(): Registry {
+        return register;
     }
 }
 

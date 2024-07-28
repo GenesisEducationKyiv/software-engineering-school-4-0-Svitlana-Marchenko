@@ -1,10 +1,11 @@
-import {Fawazahmed0ExchangeRateData, IRateService} from "../rate.service.interface";
+import {Fawazahmed0ExchangeRateData} from "./rate.client.interface";
 import axios from "axios";
-import {EXCHANGE_API_URL} from "../../../config/rate.api.const";
-import rateLogger from "../../../helpers/logger/custom/rate.logger";
-import RateApiError from "../../../error/types/rateApi.error";
+import {EXCHANGE_API_URL} from "../config/rate.api.const";
+import {IRateChainService} from "../../service/services/rate/client/chain";
+import RateApiError from "../../error/types/rateApi.error";
+import rateLogger from "../../helpers/logger/custom/rate.logger";
 
-export class ExchangeAPIRateService implements IRateService{
+export class ExchangeAPIRateService implements IRateChainService{
 
     async getExchangeRate(): Promise<number> {
         const response = await axios.get<Fawazahmed0ExchangeRateData>(EXCHANGE_API_URL);

@@ -1,13 +1,17 @@
-import {IRateService} from "../rate.service.interface";
 
-export interface IChain extends IRateService{
+export interface IChain{
     setNext(next: IChain): IChain;
+    getExchangeRate(): Promise<number>;
+}
+
+export interface IRateChainService{
+    getExchangeRate(): Promise<number>;
 }
 
 export class BaseChain implements IChain {
     private next: IChain | null
 
-    constructor(private rateService: IRateService) {}
+    constructor(private rateService: IRateChainService) {}
 
     setNext(next: IChain): IChain {
         this.next = next;

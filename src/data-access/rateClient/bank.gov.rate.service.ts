@@ -1,10 +1,11 @@
-import {BankGovRateData, IRateService} from "../rate.service.interface";
+import {IRateChainService} from "../../service/services/rate/client/chain";
 import axios from "axios";
-import {BANK_GOV_URL, CURRENCY} from "../../../config/rate.api.const";
-import rateLogger from "../../../helpers/logger/custom/rate.logger";
-import RateApiError from "../../../error/types/rateApi.error";
+import {BankGovRateData} from "./rate.client.interface";
+import {BANK_GOV_URL, CURRENCY} from "../config/rate.api.const";
+import rateLogger from "../../helpers/logger/custom/rate.logger";
+import RateApiError from "../../error/types/rateApi.error";
 
-export class BankGovRateService implements IRateService{
+export class BankGovRateService implements IRateChainService{
 
     async getExchangeRate(): Promise<number> {
         const response = await axios.get<BankGovRateData[]>(BANK_GOV_URL);
@@ -16,4 +17,4 @@ export class BankGovRateService implements IRateService{
         return rateData.rate;
     }
 }
-export default new BankGovRateService()
+export default new BankGovRateService();

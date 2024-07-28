@@ -1,7 +1,3 @@
-export interface IRateService {
-    getExchangeRate(): Promise<number>;
-}
-
 export interface PrivateBankRateData {
     ccy: string;
     base_ccy: string;

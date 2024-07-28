@@ -1,7 +1,9 @@
 import {Request, Response} from 'express'
-import {IUserService} from "../services/user/user.service.interface";
-import {errorHandler} from "../error/handler/error.handler";
-import loggerBase from "../helpers/logger/logger.base";
+import {IUserService} from "../../service/services/user/user.service.interface";
+import userService from "../../service/services/user/user.service";
+import {errorHandler} from "../../error/handler/error.handler";
+import loggerBase from "../../helpers/logger/logger.base";
+
 
 export class UserController {
 

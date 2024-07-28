@@ -1,6 +1,6 @@
 import axios from 'axios';
 import sinon from 'sinon';
-import RateService from '../../services/rate/rate.service';
+import RateService from '../../service/services/rate/rate.service';
 import {rateApiBadResponse, rateApiResponse} from "../mock/rate.mock";
 
 describe('RateService', () => {

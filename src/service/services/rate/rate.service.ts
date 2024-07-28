@@ -1,11 +1,11 @@
-import {IRateService} from "./rate.service.interface";
-import {BaseChain} from "./client/chain";
+import {IChain} from "./client/chain";
 import privatBankChain from "./client/rate.chain.const";
-import loggerBase from "../../helpers/logger/logger.base";
+import {IRateService} from "./rate.service.interface";
+import loggerBase from "../../../helpers/logger/logger.base";
 
 export class RateService implements IRateService {
 
-    constructor(private baseChain: BaseChain) {
+    constructor(private baseChain: IChain) {
         this.baseChain = baseChain
     }
 

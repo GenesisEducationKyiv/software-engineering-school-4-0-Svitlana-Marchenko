@@ -1,14 +1,14 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import './schedule/email.service'
-import rateRoute from './routers/rate.router'
-import userRoute from './routers/user.router'
+import './service/schedule/email.service'
+import rateRoute from './router/routers/rate.router'
+import userRoute from './router/routers/user.router'
 
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { dataSource } from './dataSource'
+import { dataSource } from './data-access/config/dataSource'
 
 const app = express()
 const PORT = process.env.PORT || 3000

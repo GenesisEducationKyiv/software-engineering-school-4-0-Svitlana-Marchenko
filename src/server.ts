@@ -22,14 +22,9 @@ app.use('/api/subscribe', userRoute)
 dataSource
     .initialize()
     .then(() => {
-
-       // app.use(errorHandler);
-
-
         app.listen(PORT, () => {
             console.log('SERVER IS RUNNING ON PORT ' + PORT)
         })
-
     })
     .catch((error) => {
         console.error('Error during Data Source initialization:', error)

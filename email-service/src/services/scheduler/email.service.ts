@@ -1,6 +1,5 @@
 import cron from 'node-cron'
 import nodemailer from 'nodemailer'
-import logger from '../../helpers/logger'
 import {IEmailConfig, IEmailDetails} from './sendEmail.interface'
 import {IRateService} from "../rate/rate.service.interface"
 import {IUserService} from "../user/user.service.interface";
@@ -9,6 +8,7 @@ import {emailConfig} from "../../config/email.config";
 import SendEmailError from "../../error/types/sendEmail.error";
 import userService from "../user/user.service";
 import rateService from "../rate/rate.service";
+import loggerBase from "../../helpers/logger/logger.base";
 
 class EmailScheduler {
 
@@ -53,7 +53,7 @@ class EmailScheduler {
             rate = await this.rateService.getExchangeRate();
             emails = await this.userService.getAllUsersEmail();
         } catch (err) {
-            logger.error(err);
+            loggerBase.log('error', err);
             throw err;
         }
 
@@ -83,7 +83,7 @@ class EmailScheduler {
                 subject: subject,
                 text: text,
             });
-            logger.info(`Email with ID: ${email.messageId} was sent to ${to}`);
+            loggerBase.log('info', `Email with ID: ${email.messageId} was sent to ${to}`);
         } catch (err) {
             throw new SendEmailError({message: `Error sending email to ${to}`, logging: true});
         }

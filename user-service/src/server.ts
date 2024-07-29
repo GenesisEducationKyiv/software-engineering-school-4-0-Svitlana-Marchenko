@@ -22,7 +22,6 @@ dataSource
         app.listen(PORT, () => {
             console.log('USER SERVER IS RUNNING ON PORT ' + PORT)
         })
-
     })
     .catch((error) => {
         console.error('Error during Data Source initialization:', error)

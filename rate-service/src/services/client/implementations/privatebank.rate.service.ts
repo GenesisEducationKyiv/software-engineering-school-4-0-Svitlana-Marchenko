@@ -1,17 +1,18 @@
 import {PrivateBankRateData} from "./rate.client.interface";
 import axios from "axios";
-import logger from "../../../helpers/logger";
 import {CURRENCY, PRIVATBANK_URL} from "../../../config/rate.api.const";
 import {IRateChainService} from "../chain";
+import RateApiError from "../../../error/types/rateApi.error";
+import rateLogger from "../../../helpers/logger/custom/rate.logger";
 
 export class PrivatebankRateService implements IRateChainService{
 
     async getExchangeRate(): Promise<number> {
         const response = await axios.get<PrivateBankRateData[]>(PRIVATBANK_URL);
-        logger.info(`api.privatbank.ua - Response: ${JSON.stringify(response.data)}`);
+        rateLogger.rateLog('info', 'api.privatbank.ua', response.data);
         const rateData = response.data.find(currency => currency.ccy === CURRENCY);
         if (!rateData) {
-            throw new Error('Currency data not found');
+            throw new RateApiError({message: 'Currency data not found', logging: true});
         }
         return rateData.buy;
     }

@@ -9,6 +9,7 @@ import SendEmailError from "../../error/types/sendEmail.error";
 import userService from "../user/user.service";
 import rateService from "../rate/rate.service";
 import loggerBase from "../../helpers/logger/logger.base";
+import {LogLevel} from "../../helpers/logger/logger.interface";
 
 class EmailScheduler {
 
@@ -53,7 +54,7 @@ class EmailScheduler {
             rate = await this.rateService.getExchangeRate();
             emails = await this.userService.getAllUsersEmail();
         } catch (err) {
-            loggerBase.log('error', err);
+            loggerBase.log(LogLevel.Error, err);
             throw err;
         }
 
@@ -83,7 +84,7 @@ class EmailScheduler {
                 subject: subject,
                 text: text,
             });
-            loggerBase.log('info', `Email with ID: ${email.messageId} was sent to ${to}`);
+            loggerBase.log(LogLevel.Info, `Email with ID: ${email.messageId} was sent to ${to}`);
         } catch (err) {
             throw new SendEmailError({message: `Error sending email to ${to}`, logging: true});
         }

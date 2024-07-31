@@ -1,5 +1,5 @@
 import winston from 'winston';
-import {ILogger} from "./logger.interface";
+import {ILogger, LogLevel} from "./logger.interface";
 
 export class LoggerBase implements ILogger {
 
@@ -23,7 +23,7 @@ export class LoggerBase implements ILogger {
         });
     }
 
-    log(level: string, message: string): void {
+    log(level: LogLevel, message: string): void {
         this.logger.log({ level, message });
     }
 }

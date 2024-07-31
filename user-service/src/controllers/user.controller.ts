@@ -1,8 +1,9 @@
 import {Request, Response} from 'express'
-import logger from '../helpers/logger'
 import {IUserService} from "../services/user.service.interface";
 import userService from "../services/user.service";
 import {errorHandler} from "../error/handler/error.handler";
+import loggerBase from "../helpers/logger/logger.base";
+import {LogLevel} from "../helpers/logger/logger.interface";
 
 export class UserController {
 
@@ -12,7 +13,7 @@ export class UserController {
         const {email} = req.body
          try {
             await this.userService.subscribeEmail(email)
-            logger.info(`Email ${email} was added to the database`)
+            loggerBase.log(LogLevel.Info, `Email ${email} was added to the database`)
             return res.status(201).json({
                 message: `New email was added to the database`,
             })
@@ -24,10 +25,10 @@ export class UserController {
     async getAllUsers(req: Request, res: Response): Promise<Response> {
         try {
             const users = await this.userService.getAllUsers();
-            logger.debug(`Getting (${users.length}) users from db`);
+            loggerBase.log(LogLevel.Debug, `Getting (${users.length}) users from db`);
             return res.status(200).json(users);
         } catch (error) {
-            logger.error(`Error getting users: ${error.message}`);
+            loggerBase.log(LogLevel.Error, `Error getting users: ${error.message}`);
             return errorHandler(error, req, res);
         }
     }
@@ -35,10 +36,10 @@ export class UserController {
     async getAllUsersEmails(req: Request, res: Response): Promise<Response> {
         try {
             const emails = await this.userService.getAllUsersEmails();
-            logger.debug(`Getting all users emails from db`);
+            loggerBase.log(LogLevel.Debug, `Getting all users emails from db`);
             return res.status(200).json(emails);
         } catch (error) {
-            logger.error(`Error getting users emails: ${error.message}`);
+            loggerBase.log(LogLevel.Error, `Error getting users emails: ${error.message}`);
             return errorHandler(error, req, res);
         }
     }

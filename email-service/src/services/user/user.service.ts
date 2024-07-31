@@ -1,7 +1,7 @@
 import {IUserService} from "./user.service.interface";
 import axios from "axios";
-import {errorMailHandler} from "../../../../src/error/handler/senderError.handler";
 import {USER_API_URL} from "../../config/system.config";
+import {errorMailHandler} from "../../error/handler/error.mail.handler";
 
 export class UserService implements IUserService{
 

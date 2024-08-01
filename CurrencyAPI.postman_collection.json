@@ -1,0 +1,98 @@
+{
+    "info": {
+        "_postman_id": "645c94d0-fa8a-4818-956e-9559b7acefc5",
+        "name": "CurrencyAPI",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "18446577"
+    },
+    "item": [
+        {
+            "name": "Get currency rate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Status code is 200\", function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test(\"Response should be json\", function () {",
+                            "    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+                            "});",
+                            "",
+                            "pm.test(\"Check response type\", function () {",
+                            "    const responseJson = pm.response.json();",
+                            "    pm.expect(responseJson).to.be.a(\"number\");",
+                            "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:3000/api/rate",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "rate"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Subscribe user",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Status code is 200 or 409\", function () {",
+                            "    pm.expect(pm.response.code).to.be.oneOf([200, 409]);",
+                            "});",
+                            "",
+                            "",
+                            "pm.test(\"Check response message\", function () {",
+                            "    const jsonData = pm.response.json();",
+                            "    if (pm.response.code === 200) {",
+                            "        pm.expect(jsonData.message).to.eql(\"New email was added to the database\");",
+                            "    } else if (pm.response.code === 409) {",
+                            "        pm.expect(jsonData.message).to.eql(\"Email is already in the database\");",
+                            "    }",
+                            "});",
+                            ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "email",
+                            "value": "test@example.com",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://localhost:3000/api/subscribe",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "subscribe"]
+                }
+            },
+            "response": []
+        }
+    ]
+}

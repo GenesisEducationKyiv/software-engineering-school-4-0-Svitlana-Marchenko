@@ -17,15 +17,14 @@ app.use(bodyParser.json())
 app.use('/api', userRoute)
 
 dataSource
-    .initialize()
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log('USER SERVER IS RUNNING ON PORT ' + PORT)
-        })
-    })
-    .catch((error) => {
-        console.error('Error during Data Source initialization:', error)
-    })
-
+   .initialize()
+   .then(() => {
+      app.listen(PORT, () => {
+         console.log('USER SERVER IS RUNNING ON PORT ' + PORT)
+      })
+   })
+   .catch((error) => {
+      console.error('Error during Data Source initialization:', error)
+   })
 
 export default app

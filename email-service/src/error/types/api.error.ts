@@ -1,24 +1,28 @@
-import { BaseError } from "../base.error";
+import { BaseError } from '../base.error'
 
 export default class ApiError extends BaseError {
-    private readonly _logging: boolean;
-    private readonly _context: { [key: string]: any };
+   private readonly _logging: boolean
+   private readonly _context: { [key: string]: any }
 
-    constructor(params?: {message?: string, logging?: boolean, context?: { [key: string]: any }}) {
-        const {message, logging } = params || {};
+   constructor(params?: {
+      message?: string
+      logging?: boolean
+      context?: { [key: string]: any }
+   }) {
+      const { message, logging } = params || {}
 
-        super(params?.message || "Error getting information");
-        this._logging = logging || false;
-        this._context = params?.context || {};
+      super(params?.message || 'Error getting information')
+      this._logging = logging || false
+      this._context = params?.context || {}
 
-        Object.setPrototypeOf(this, ApiError.prototype);
-    }
+      Object.setPrototypeOf(this, ApiError.prototype)
+   }
 
-    get errors() {
-        return [{ message: this.message, context: this._context }];
-    }
+   get errors() {
+      return [{ message: this.message, context: this._context }]
+   }
 
-    get logging() {
-        return this._logging;
-    }
+   get logging() {
+      return this._logging
+   }
 }

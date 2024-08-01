@@ -1,8 +1,8 @@
 export interface IEmailConfig {
-    service: string
-    login: string
-    password: string
-    port: number
+   service: string
+   login: string
+   password: string
+   port: number
 }
 
 export interface IEmailDetails {
@@ -12,6 +12,6 @@ export interface IEmailDetails {
    text: string
 }
 
-export interface IEmailSender{
-    sendEmail(emailDetails: IEmailDetails): Promise<void>
+export interface IEmailSender {
+   sendEmail(emailDetails: IEmailDetails): Promise<void>
 }

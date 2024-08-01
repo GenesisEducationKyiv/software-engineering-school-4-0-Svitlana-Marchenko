@@ -1,13 +1,12 @@
-import {Request, Response} from 'express'
-import {IRateService} from "../services/rate.service.interface"
-import rateService from "../services/rate.service";
-import {errorHandler} from "../error/handler/error.handler";
-import {IRateController} from "./rate.controller.interface";
-import loggerBase from "../helpers/logger/logger.base";
-import {LogLevel} from "../helpers/logger/logger.interface";
+import { Request, Response } from 'express'
+import { IRateService } from '../services/rate.service.interface'
+import rateService from '../services/rate.service'
+import { errorHandler } from '../error/handler/error.handler'
+import { IRateController } from './rate.controller.interface'
+import loggerBase from '../helpers/logger/logger.base'
+import { LogLevel } from '../helpers/logger/logger.interface'
 
-export class RateController implements IRateController{
-
+export class RateController implements IRateController {
    constructor(private rateService: IRateService) {}
 
    async getRate(req: Request, res: Response): Promise<Response> {

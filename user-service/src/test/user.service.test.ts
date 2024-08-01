@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import sinon from 'sinon'
 import userService from '../services/user/user.service'
 import { User } from '../entity/user.entity'
 import { dataSource } from '../config/dataSource'

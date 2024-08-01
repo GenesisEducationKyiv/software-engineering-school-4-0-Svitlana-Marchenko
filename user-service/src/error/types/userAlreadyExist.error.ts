@@ -11,7 +11,7 @@ export default class UserAlreadyExistError extends BaseError {
    }) {
       const { message, logging } = params || {}
 
-      super(params?.message || 'User already exists')
+      super(message || 'User already exists')
       this._logging = logging || false
       this._context = params?.context || {}
 

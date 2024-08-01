@@ -1,5 +1,5 @@
-import {IEvent} from "../queue/queue.service.interface";
+import { IEvent } from '../queue/queue.service.interface'
 
-export interface IEventService{
-    addEvent(event: IEvent): Promise<void>
+export interface IEventService {
+   addEvent(event: IEvent): Promise<void>
 }

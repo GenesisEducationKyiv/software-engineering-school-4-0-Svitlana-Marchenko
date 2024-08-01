@@ -31,24 +31,32 @@ export const errorHandler = (err: Error, req: Request, res: Response) => {
       return res.status(400).send({ errors })
    }
 
-    if(err instanceof UserAlreadyExistError) {
-        return res.status(409).send({ errors });
-    } else if ( err instanceof BadRequestError) {
-        return res.status(400).send({ errors });
-    }
+   if (err instanceof UserAlreadyExistError) {
+      return res.status(409).send({ errors })
+   } else if (err instanceof BadRequestError) {
+      return res.status(400).send({ errors })
+   }
 
-    return res.status(500).send({ errors: [{ message: "Something went wrong" }] });
-};
+   return res
+      .status(500)
+      .send({ errors: [{ message: 'Something went wrong' }] })
+}
 
 export const serviceErrorHandler = (err: Error) => {
-    if (!(err instanceof BaseError)) {
-        logger.error(`Error: ${err.message}\nStack: ${err.stack}`);
-        return;
-    }
+   if (!(err instanceof BaseError)) {
+      loggerBase.log(
+         LogLevel.Error,
+         `Error: ${err.message}\nStack: ${err.stack}`,
+      )
+      return
+   }
 
-    const { errors, logging } = err as BaseError;
+   const { errors, logging } = err as BaseError
 
-    if (logging) {
-        logger.error(`Errors: ${JSON.stringify(errors, null, 2)}\nStack: ${err.stack}`);
-    }
-};
+   if (logging) {
+      loggerBase.log(
+         LogLevel.Error,
+         `Errors: ${JSON.stringify(errors, null, 2)}\nStack: ${err.stack}`,
+      )
+   }
+}

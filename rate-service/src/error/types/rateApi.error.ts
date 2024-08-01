@@ -11,7 +11,7 @@ export default class RateApiError extends BaseError {
    }) {
       const { message, logging } = params || {}
 
-      super(params?.message || 'Currency data not found')
+      super(message || 'Currency data not found')
       this._logging = logging || false
       this._context = params?.context || {}
 

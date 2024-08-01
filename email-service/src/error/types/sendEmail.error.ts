@@ -9,13 +9,9 @@ export default class SendEmailError extends BaseError {
       logging?: boolean
       context?: { [key: string]: any }
    }) {
-      const { message, logging } = params || {}
-
       super(params?.message || 'Error sending email')
-      this._logging = logging || false
+      this._logging = params?.logging || false
       this._context = params?.context || {}
-
-      Object.setPrototypeOf(this, SendEmailError.prototype)
    }
 
    get errors() {

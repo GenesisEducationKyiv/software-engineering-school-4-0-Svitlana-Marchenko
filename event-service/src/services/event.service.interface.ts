@@ -1,5 +1,5 @@
-import {IEvent} from "../model/event.model";
+import { IEvent } from '../model/event.model'
 
-export interface IEventService{
-    createEvent(event: IEvent, ): Promise<void>
+export interface IEventService {
+   createEvent(event: IEvent): Promise<void>
 }

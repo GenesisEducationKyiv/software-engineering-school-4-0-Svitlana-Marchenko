@@ -1,4 +1,3 @@
-
 export interface IUserService {
-    getAllUsersEmail(): Promise<string[]>;
+   getAllUsersEmail(): Promise<string[]>
 }

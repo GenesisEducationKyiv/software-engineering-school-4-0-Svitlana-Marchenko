@@ -1,47 +1,49 @@
-import { Request, Response } from 'express';
-import sinon from 'sinon';
-import rateService from "../services/rate.service";
-import {RateController} from "../controllers/rate.controller";
-import RateApiError from "../error/types/rateApi.error";
+import { Request, Response } from 'express'
+import sinon from 'sinon'
+import rateService from '../services/rate.service'
+import { RateController } from '../controllers/rate.controller'
+import RateApiError from '../error/types/rateApi.error'
 
 describe('RateController', () => {
-    let req: Partial<Request>;
-    let res: Partial<Response>;
-    let rateServiceStub: sinon.SinonStub;
+   let req: Partial<Request>
+   let res: Partial<Response>
+   let rateServiceStub: sinon.SinonStub
 
-    beforeEach(() => {
-        req = {};
-        res = {
-            status: sinon.stub().returnsThis(),
-            json: sinon.stub(),
-            send: sinon.stub()
-        };
-        rateServiceStub = sinon.stub(rateService, 'getExchangeRate');
-    });
+   beforeEach(() => {
+      req = {}
+      res = {
+         status: sinon.stub().returnsThis(),
+         json: sinon.stub(),
+         send: sinon.stub(),
+      }
+      rateServiceStub = sinon.stub(rateService, 'getExchangeRate')
+   })
 
-    afterEach(() => {
-        sinon.restore();
-    });
+   afterEach(() => {
+      sinon.restore()
+   })
 
-    it('should return 200 and the exchange rate if services succeeds', async () => {
-        const exchangeRate = { rate: 40.4 };
-        rateServiceStub.resolves(exchangeRate);
+   it('should return 200 and the exchange rate if services succeeds', async () => {
+      const exchangeRate = { rate: 40.4 }
+      rateServiceStub.resolves(exchangeRate)
 
-        const controller = new RateController(rateService);
-        await controller.getRate(req as Request, res as Response);
+      const controller = new RateController(rateService)
+      await controller.getRate(req as Request, res as Response)
 
-        expect(rateServiceStub.calledOnce).toBe(true);
-        expect((res.status as sinon.SinonStub).calledWith(200)).toBe(true);
-        expect((res.json as sinon.SinonStub).calledWith(exchangeRate)).toBe(true);
-    });
+      expect(rateServiceStub.calledOnce).toBe(true)
+      expect((res.status as sinon.SinonStub).calledWith(200)).toBe(true)
+      expect((res.json as sinon.SinonStub).calledWith(exchangeRate)).toBe(true)
+   })
 
-    it('should return 500 if services returns error', async () => {
-        rateServiceStub.rejects(new RateApiError({ message: 'Currency data not found' }));
+   it('should return 500 if services returns error', async () => {
+      rateServiceStub.rejects(
+         new RateApiError({ message: 'Currency data not found' }),
+      )
 
-        const controller = new RateController(rateService);
-        await controller.getRate(req as Request, res as Response);
+      const controller = new RateController(rateService)
+      await controller.getRate(req as Request, res as Response)
 
-        expect(rateServiceStub.calledOnce).toBe(true);
-        expect((res.status as sinon.SinonStub).calledWith(500)).toBe(true);
-    });
-});
+      expect(rateServiceStub.calledOnce).toBe(true)
+      expect((res.status as sinon.SinonStub).calledWith(500)).toBe(true)
+   })
+})

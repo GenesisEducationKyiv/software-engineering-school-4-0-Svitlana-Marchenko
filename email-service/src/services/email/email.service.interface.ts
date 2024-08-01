@@ -6,10 +6,10 @@ export interface IEmailConfig {
 }
 
 export interface IEmailDetails {
-    from: string
-    to: string
-    subject: string
-    text: string
+   from: string
+   to: string
+   subject: string
+   text: string
 }
 
 export interface IEmailSender{

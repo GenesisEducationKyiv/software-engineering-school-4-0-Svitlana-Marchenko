@@ -13,3 +13,4 @@ export const rateMessageConfig: IRateEmailMessageConfig = {
     sender: process.env.EMAIL_SENDER as string,
     subject: process.env.EMAIL_SUBJECT || 'USD to UAH Exchange Rate',
 };
+

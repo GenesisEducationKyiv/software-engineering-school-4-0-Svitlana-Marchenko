@@ -1,3 +1,3 @@
 export interface IRateService {
-    getExchangeRate(): Promise<number>;
+   getExchangeRate(): Promise<number>
 }

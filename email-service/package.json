@@ -5,7 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/server.js",
-    "build": "tsc"
+    "build": "tsc",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "keywords": [],
   "author": "",
@@ -26,6 +30,10 @@
     "@types/node": "^20.14.2",
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^6.4.15",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.2",
+    "@eslint/js": "^9.8.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.8.0",
+    "typescript-eslint": "^8.0.0"
   }
 }

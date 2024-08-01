@@ -3,8 +3,7 @@ import axios from "axios";
 import {errorHandler} from "../../error/handler/error.handler";
 import {USER_API_URL} from "../../config/system.config";
 
-export class UserService implements IUserService{
-
+export class UserService implements IUserService {
     constructor() {}
 
     async getAllUsersEmail(): Promise<string[]> {
@@ -18,4 +17,5 @@ export class UserService implements IUserService{
         }
     }
 }
+
 export default new UserService()

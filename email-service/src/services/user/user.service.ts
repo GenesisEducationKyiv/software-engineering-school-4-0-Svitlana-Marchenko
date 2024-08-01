@@ -1,7 +1,7 @@
 import { IUserService } from './user.service.interface'
 import axios from 'axios'
+import { errorHandler } from '../../error/handler/error.handler'
 import { USER_API_URL } from '../../config/system.config'
-import { errorMailHandler } from '../../error/handler/error.mail.handler'
 
 export class UserService implements IUserService {
    constructor() {}
@@ -13,8 +13,9 @@ export class UserService implements IUserService {
 
          return users.map((user: { email: string }) => user.email)
       } catch (error) {
-         errorMailHandler(error)
+         errorHandler(error)
       }
    }
 }
+
 export default new UserService()

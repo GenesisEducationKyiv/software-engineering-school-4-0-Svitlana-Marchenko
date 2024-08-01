@@ -1,8 +1,8 @@
-import { User } from '../entity/user.entity'
-import UserAlreadyExistError from '../error/types/userAlreadyExist.error'
+import { User } from '../../entity/user.entity'
 import { IUserService } from './user.service.interface'
-import { IUserRepository } from '../repositories/user.repository.interface'
-import userRepository from '../repositories/user.repository'
+import { IUserRepository } from '../../repositories/user.repository.interface'
+import UserAlreadyExistError from '../../error/types/userAlreadyExist.error'
+import userRepository from '../../repositories/user.repository'
 
 export class UserService implements IUserService {
    constructor(private userRepository: IUserRepository) {}
@@ -34,7 +34,7 @@ export class UserService implements IUserService {
       }
    }
 
-   async getAllUsersEmails(): Promise<String[]> {
+   async getAllUsersEmails(): Promise<string[]> {
       try {
          const users = await this.userRepository.getAll()
          return users.map((user) => user.email)

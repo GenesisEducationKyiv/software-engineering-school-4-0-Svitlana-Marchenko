@@ -1,6 +1,6 @@
 import { BaseError } from '../base.error'
 
-export default class ApiError extends BaseError {
+export default class BadRequestError extends BaseError {
    private readonly _logging: boolean
    private readonly _context: { [key: string]: any }
 
@@ -9,8 +9,9 @@ export default class ApiError extends BaseError {
       logging?: boolean
       context?: { [key: string]: any }
    }) {
-      super(params?.message || 'Error getting information')
-      this._logging = params?.logging || false
+      const { message, logging } = params || {}
+      super(message || 'Bad request')
+      this._logging = logging || false
       this._context = params?.context || {}
    }
 

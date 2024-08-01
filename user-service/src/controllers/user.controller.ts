@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { IUserService } from '../services/user.service.interface'
-import userService from '../services/user.service'
+import { IUserService } from '../services/user/user.service.interface'
+import userService from '../services/user/user.service'
 import { errorHandler } from '../error/handler/error.handler'
-import loggerBase from '../helpers/logger/logger.base'
 import { LogLevel } from '../helpers/logger/logger.interface'
+import loggerBase from '../helpers/logger/logger.base'
 
 export class UserController {
    constructor(private userService: IUserService) {}

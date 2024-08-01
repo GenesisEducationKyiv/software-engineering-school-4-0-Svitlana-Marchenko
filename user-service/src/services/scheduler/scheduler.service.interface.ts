@@ -1,11 +1,7 @@
-export interface IEmailConfig {
-   service: string
-   login: string
-   password: string
+export interface IRateEmailMessageConfig {
+   textTemplate: string
    sender: string
    subject: string
-   textTemplate: string
-   port: number
 }
 
 export interface IEmailDetails {
